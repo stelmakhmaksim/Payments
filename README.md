@@ -1,5 +1,8 @@
 Lab First Projects
+
 Client-Server Project
+
+[![Build Status](https://travis-ci.org/Astel/Payments.svg?branch=master)](https://travis-ci.org/Astel/Payments)
 
 Описание задания: 2. Система Платежи.
 Клиент имеет одну или несколько Кредитных Карт, каждая изкоторых соответствует некоторому Счету в системе платежей.
