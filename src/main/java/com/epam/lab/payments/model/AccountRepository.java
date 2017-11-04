@@ -1,4 +1,4 @@
-package epam.lab.payments.model;
+package com.epam.lab.payments.model;
 
 
 import org.springframework.data.jpa.repository.Query;

@@ -1,11 +1,10 @@
-package epam.lab.payments.model;
+package com.epam.lab.payments.model;
 
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
 
 /**
  * Created by Александр on 03.11.2017.
@@ -13,12 +12,12 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-public class Card {
+public class User {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String cardholderName;
-    private LocalDate expiration;
-    private Integer securityCode;
+    private String name;
+
+    private String email;
 }
