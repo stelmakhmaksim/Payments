@@ -18,6 +18,15 @@ public class UserEntity {
     private String password;
     private String phone;
     private boolean isAdmin;
+
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     private Collection<CreditCardEntity> creditCardsById;
 
     @Id

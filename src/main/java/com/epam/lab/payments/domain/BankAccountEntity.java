@@ -15,6 +15,15 @@ public class BankAccountEntity {
     private String ownerName;
     private int balance;
     private boolean isBlocked;
+
+    public boolean getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(boolean isBlocked) {
+        this.isBlocked = isBlocked;
+    }
+
     private Collection<CreditCardEntity> creditCardsById;
     private Collection<OrderEntity> ordersById;
 
