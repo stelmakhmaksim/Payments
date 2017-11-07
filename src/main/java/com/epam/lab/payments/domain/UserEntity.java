@@ -4,12 +4,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Collection;
 
 @Entity
-@Table(name = "user", schema = "public", catalog = "payments")
+@Table(name = "user", schema = "public", catalog = "srv105242_pay2")
 public class UserEntity {
     private int id;
     private String firstName;
@@ -26,8 +24,6 @@ public class UserEntity {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
-
-    private Collection<CreditCardEntity> creditCardsById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -128,14 +124,5 @@ public class UserEntity {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<CreditCardEntity> getCreditCardsById() {
-        return creditCardsById;
-    }
-
-    public void setCreditCardsById(Collection<CreditCardEntity> creditCardsById) {
-        this.creditCardsById = creditCardsById;
     }
 }

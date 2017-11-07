@@ -5,7 +5,7 @@
 <hibernate-mapping>
 
     <class name="com.epam.lab.payments.domain.BankAccountEntity" table="bank_account"
-           schema="public" catalog="payments">
+           schema="public" catalog="srv105242_pay2">
         <id name="id">
             <column name="id" sql-type="integer"/>
         </id>
@@ -18,17 +18,5 @@
         <property name="isBlocked">
             <column name="is_blocked" sql-type="boolean"/>
         </property>
-        <set name="creditCardsById" inverse="true">
-            <key>
-                <column name="account_id"/>
-            </key>
-            <one-to-many not-found="ignore" class="com.epam.lab.payments.domain.CreditCardEntity"/>
-        </set>
-        <set name="ordersById" inverse="true">
-            <key>
-                <column name="account_id"/>
-            </key>
-            <one-to-many not-found="ignore" class="com.epam.lab.payments.domain.OrderEntity"/>
-        </set>
     </class>
 </hibernate-mapping>

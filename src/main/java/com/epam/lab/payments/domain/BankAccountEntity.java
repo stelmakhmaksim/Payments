@@ -4,12 +4,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Collection;
 
 @Entity
-@Table(name = "bank_account", schema = "public", catalog = "payments")
+@Table(name = "bank_account", schema = "public", catalog = "srv105242_pay2")
 public class BankAccountEntity {
     private int id;
     private String ownerName;
@@ -23,9 +21,6 @@ public class BankAccountEntity {
     public void setIsBlocked(boolean isBlocked) {
         this.isBlocked = isBlocked;
     }
-
-    private Collection<CreditCardEntity> creditCardsById;
-    private Collection<OrderEntity> ordersById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -90,23 +85,5 @@ public class BankAccountEntity {
         result = 31 * result + balance;
         result = 31 * result + (isBlocked ? 1 : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "bankAccountByAccountId")
-    public Collection<CreditCardEntity> getCreditCardsById() {
-        return creditCardsById;
-    }
-
-    public void setCreditCardsById(Collection<CreditCardEntity> creditCardsById) {
-        this.creditCardsById = creditCardsById;
-    }
-
-    @OneToMany(mappedBy = "bankAccountByAccountId")
-    public Collection<OrderEntity> getOrdersById() {
-        return ordersById;
-    }
-
-    public void setOrdersById(Collection<OrderEntity> ordersById) {
-        this.ordersById = ordersById;
     }
 }
