@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.epam.lab.payments.domain.UserEntity" table="user" schema="public"
+           catalog="payments">
+        <id name="id">
+            <column name="id" sql-type="integer"/>
+        </id>
+        <property name="firstName">
+            <column name="first_name" sql-type="text"/>
+        </property>
+        <property name="lastName">
+            <column name="last_name" sql-type="text"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="text"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="text"/>
+        </property>
+        <property name="phone">
+            <column name="phone" sql-type="text"/>
+        </property>
+        <property name="isAdmin">
+            <column name="is_admin" sql-type="boolean"/>
+        </property>
+        <set name="creditCardsById" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.epam.lab.payments.domain.CreditCardEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

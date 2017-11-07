@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/payments</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">0309</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <mapping resource="hibernate/BankAccountEntity.hbm.xml"/>
+        <mapping class="com.epam.lab.payments.domain.BankAccountEntity"/>
+        <mapping resource="hibernate/CreditCardEntity.hbm.xml"/>
+        <mapping class="com.epam.lab.payments.domain.CreditCardEntity"/>
+        <mapping resource="hibernate/OrderEntity.hbm.xml"/>
+        <mapping class="com.epam.lab.payments.domain.OrderEntity"/>
+        <mapping resource="hibernate/UserEntity.hbm.xml"/>
+        <mapping class="com.epam.lab.payments.domain.UserEntity"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
