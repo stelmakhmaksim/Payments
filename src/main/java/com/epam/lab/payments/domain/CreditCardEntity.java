@@ -10,13 +10,12 @@ import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
-@Table(name = "credit_card", schema = "public", catalog = "payments")
+@Table(name = "credit_card", schema = "public", catalog = "srv105242_pay2")
 public class CreditCardEntity {
     private int id;
     private String cardholderName;
     private Date expiration;
     private int securityCode;
-    private UserEntity userByUserId;
     private BankAccountEntity bankAccountByAccountId;
 
     @Id
@@ -83,16 +82,6 @@ public class CreditCardEntity {
         result = 31 * result + (expiration != null ? expiration.hashCode() : 0);
         result = 31 * result + securityCode;
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public UserEntity getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
     }
 
     @ManyToOne

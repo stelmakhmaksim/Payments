@@ -5,7 +5,7 @@
 <hibernate-mapping>
 
     <class name="com.epam.lab.payments.domain.OrderEntity" table="order" schema="public"
-           catalog="payments">
+           catalog="srv105242_pay2">
         <id name="id">
             <column name="id" sql-type="integer"/>
         </id>

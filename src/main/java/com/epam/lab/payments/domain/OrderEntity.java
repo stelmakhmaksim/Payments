@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 @Entity
-@Table(name = "order", schema = "public", catalog = "payments")
+@Table(name = "order", schema = "public", catalog = "srv105242_pay2")
 public class OrderEntity {
     private int id;
     private Date date;
