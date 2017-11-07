@@ -11,6 +11,6 @@ import java.util.List;
  * Created by Александр on 03.11.2017.
  */
 public interface AccountRepository extends Repository<Account, Long> {
-    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) = LOWER(:lastName)")
-    List<Account> find(@Param("user_id") Integer user_id);
+//    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) = LOWER(:lastName)")
+//    List<Account> find(@Param("user_id") Integer user_id);
 }
