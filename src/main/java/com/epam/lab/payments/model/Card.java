@@ -16,9 +16,10 @@ import java.time.LocalDate;
 public class Card {
     @Id
     @GeneratedValue
-    private Long id;
+    public Long id;
 
-    private String cardholderName;
-    private LocalDate expiration;
-    private Integer securityCode;
+    public String cardHolderName;
+    public LocalDate expiration;
+    public Integer securityCode;
+    public Long accountId;
 }
