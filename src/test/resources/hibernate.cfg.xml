@@ -4,29 +4,22 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!--<property name="connection.url">jdbc:postgresql://localhost:5432/payments</property>
-        <property name="connection.username">postgres</property>
-        <property name="connection.password">0309</property>
-        <property name="connection.driver_class">org.postgresql.Driver</property>-->
-
         <property name="connection.url">jdbc:h2:file:~/h2/payments;DB_CLOSE_ON_EXIT=FALSE</property>
         <property name="connection.username">user</property>
         <property name="connection.password">0309</property>
         <property name="connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
 
         <mapping resource="hibernate/BankAccountEntity.hbm.xml"/>
         <mapping class="com.epam.lab.payments.domain.BankAccountEntity"/>
-
         <mapping resource="hibernate/CreditCardEntity.hbm.xml"/>
         <mapping class="com.epam.lab.payments.domain.CreditCardEntity"/>
-
         <mapping resource="hibernate/OrderEntity.hbm.xml"/>
         <mapping class="com.epam.lab.payments.domain.OrderEntity"/>
-
         <mapping resource="hibernate/UserEntity.hbm.xml"/>
-        <mapping class="com.epam.lab.payments.domain.UserEntity"/>
 
+        <mapping class="com.epam.lab.payments.domain.UserEntity"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
