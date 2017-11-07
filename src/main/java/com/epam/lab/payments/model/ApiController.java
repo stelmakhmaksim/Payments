@@ -10,12 +10,12 @@ public class ApiController {
 
     private final CardRepository cardRepository;
 
-    public ApiController(CardRepository visitsRepository) {
-        this.cardRepository = visitsRepository;
+    public ApiController(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
     }
 
     @GetMapping("/cards")
-    public Iterable<Card> getVisits() {
+    public Iterable<Card> getCards() {
         return cardRepository.findAll();
     }
 }
