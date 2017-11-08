@@ -7,9 +7,12 @@
         <property name="connection.url">
             jdbc:postgresql://pgsql-105242.srv.hoster.ru:5432/srv105242_pay2
         </property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="connection.username">srv105242_epam2</property>
         <property name="connection.password">Epam1234</property>
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">validate</property>
         <mapping class="com.epam.lab.payments.domain.BankAccountEntity"/>
         <mapping class="com.epam.lab.payments.domain.CreditCardEntity"/>
         <mapping class="com.epam.lab.payments.domain.OrderEntity"/>
