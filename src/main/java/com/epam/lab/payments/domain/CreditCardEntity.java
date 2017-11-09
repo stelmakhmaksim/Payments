@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "credit_card", schema = "public", catalog = "srv105242_pay2")
+@Table(name = "credit_card")
 @Data
 public class CreditCardEntity {
     @Id
