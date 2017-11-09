@@ -1,4 +1,4 @@
-package com.epam.lab.payments.controller;
+package com.epam.lab.payments.web;
 
 import com.epam.lab.payments.dao.CreditCardRepository;
 import org.springframework.stereotype.Controller;

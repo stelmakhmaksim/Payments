@@ -1,4 +1,4 @@
-package com.epam.lab.payments.controller;
+package com.epam.lab.payments.web;
 
 import com.epam.lab.payments.dao.BankAccountRepository;
 import com.epam.lab.payments.dao.CreditCardRepository;
@@ -44,11 +44,6 @@ class MainRestController {
         }
         return ResponseEntity.ok().body(userEntity);
     }
-
-    /*@GetMapping("user/{id}/cards")
-    public List<CreditCardEntity> getCardsByUserId(@PathVariable(value = "id") Integer userId) {
-        return creditCardRepository.findByUserId(userId);
-    }*/
 
     @GetMapping("/cards")
     public List<CreditCardEntity> getAllCards() {

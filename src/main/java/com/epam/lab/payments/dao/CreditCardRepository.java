@@ -10,7 +10,5 @@ import java.util.Optional;
 public interface CreditCardRepository extends JpaRepository<CreditCardEntity, Integer> {
     Optional<CreditCardEntity> findById(Integer id);
 
-    //List<CreditCardEntity> findByUserId(Integer userId);
-
 }
 
