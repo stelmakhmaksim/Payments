@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bank_account")
+@Table(name = "bank_account", schema = "public")
 @Data
 public class BankAccountEntity {
     @Id
