@@ -50,17 +50,13 @@ class MainRestController {
         return creditCardRepository.findAll();
     }
 
-
     @GetMapping("/orders")
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    @GetMapping("/bankAccounts")
+    @GetMapping("/accounts")
     public List<BankAccountEntity> getAllBankAccounts() {
         return bankAccountRepository.findAll();
     }
-
-
-
 }
