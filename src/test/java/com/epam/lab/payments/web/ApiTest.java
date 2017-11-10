@@ -1,6 +1,6 @@
 package com.epam.lab.payments.controllers;
 
-import com.epam.lab.payments.UserRepository;
+import com.epam.lab.payments.dao.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
