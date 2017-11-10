@@ -8,6 +8,7 @@ import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.domain.CreditCardEntity;
 import com.epam.lab.payments.domain.OrderEntity;
 import com.epam.lab.payments.domain.UserEntity;
+import com.epam.lab.payments.services.PaymentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,26 +24,17 @@ import java.util.Optional;
 class MainRestController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CreditCardRepository creditCardRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private BankAccountRepository bankAccountRepository;
+    PaymentsService paymentsService;
 
     @GetMapping("/users")
     public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+        return paymentsService.findAllUsers();
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "id") Integer userId) {
 
-        Optional<UserEntity> userEntity = Optional.ofNullable(userRepository.findOne(userId));
+        Optional<UserEntity> userEntity = paymentsService.findOneUser(userId);
         if (userEntity.isPresent()) {
             return ResponseEntity.ok().body(userEntity.get());
         }
@@ -51,16 +43,16 @@ class MainRestController {
 
     @GetMapping("/cards")
     public List<CreditCardEntity> getAllCards() {
-        return creditCardRepository.findAll();
+        return paymentsService.findAllCreditCard();
     }
 
     @GetMapping("/orders")
     public List<OrderEntity> getAllOrders() {
-        return orderRepository.findAll();
+        return paymentsService.findAllOrders();
     }
 
     @GetMapping("/accounts")
     public List<BankAccountEntity> getAllBankAccounts() {
-        return bankAccountRepository.findAll();
+        return paymentsService.findAllBankAccounts();
     }
 }

@@ -11,4 +11,3 @@ public interface CreditCardRepository extends JpaRepository<CreditCardEntity, In
     Optional<CreditCardEntity> findById(Integer id);
 
 }
-
