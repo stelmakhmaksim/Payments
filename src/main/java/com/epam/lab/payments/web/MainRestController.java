@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -40,11 +41,12 @@ class MainRestController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "id") Integer userId) {
-        UserEntity userEntity = userRepository.findOne(userId);
-        if(userEntity == null) {
-            return ResponseEntity.notFound().build();
+
+        Optional<UserEntity> userEntity = Optional.ofNullable(userRepository.findOne(userId));
+        if (userEntity.isPresent()) {
+            return ResponseEntity.ok().body(userEntity.get());
         }
-        return ResponseEntity.ok().body(userEntity);
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/cards")
