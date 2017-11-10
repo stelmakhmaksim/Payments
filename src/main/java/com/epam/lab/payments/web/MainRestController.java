@@ -8,6 +8,7 @@ import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.domain.CreditCardEntity;
 import com.epam.lab.payments.domain.OrderEntity;
 import com.epam.lab.payments.domain.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +20,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 class MainRestController {
-    private final UserRepository userRepository;
-    private final CreditCardRepository creditCardRepository;
-    private final OrderRepository orderRepository;
-    private final BankAccountRepository bankAccountRepository;
 
-    MainRestController(UserRepository userEntityRepository, CreditCardRepository creditCardRepository, OrderRepository orderRepository, BankAccountRepository bankAccountRepository) {
-        this.userRepository = userEntityRepository;
-        this.creditCardRepository = creditCardRepository;
-        this.orderRepository = orderRepository;
-        this.bankAccountRepository = bankAccountRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CreditCardRepository creditCardRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
 
     @GetMapping("/users")
     public List<UserEntity> getAllUsers() {
