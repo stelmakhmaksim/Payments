@@ -83,6 +83,7 @@
                 {
                     name:'admin',
                     index:'admin',
+                    template: "booleanCheckbox",
                     width:70
                 },
                 {
@@ -173,11 +174,13 @@
                 {
                     name:'expiration',
                     index:'expiration',
+                    align:'center',
                     width:100
                 },
                 {
                     name:'securityCode',
                     index:'securityCode',
+                    align:'center',
                     width:110
                 },
                 {
@@ -185,6 +188,7 @@
                     index:'id',
                     width:200,
                     formatter:formatAccountLink,
+                    align:'center',
                     sortable:false
                 }
 			],
@@ -238,7 +242,7 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/accounts',
 			datatype: "json",
-			colNames:['ID', 'Owner Name', 'Balance', 'isBlocked', 'Cards', 'Orders'],
+			colNames:['ID', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
 			colModel:[
                 {
                     name:'id',
@@ -253,11 +257,14 @@
                 {
                     name:'balance',
                     index:'balance',
-                    width:200
+                    align:'right',
+                    width:150
                 },
                 {
                     name:'isBlocked',
                     index:'isBlocked',
+                    template:'booleanCheckbox',
+                    align: "center",
                     width:100
                 },
                 {

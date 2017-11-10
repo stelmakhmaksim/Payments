@@ -33,7 +33,7 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/accounts',
 			datatype: "json",
-			colNames:['ID', 'Owner Name', 'Balance', 'isBlocked'],
+			colNames:['ID', 'Owner Name', 'Balance', 'Is Blocked'],
 			colModel:[
                 {
                     name:'id',
@@ -48,11 +48,13 @@
                 {
                     name:'balance',
                     index:'balance',
+                    align:"right",
                     width:200
                 },
                 {
-                    name:'isBlocked',
-                    index:'isBlocked',
+                    name:'blocked',
+                    index:'blocked',
+                    template:'booleanCheckbox',
                     width:100
                 }
 			],
