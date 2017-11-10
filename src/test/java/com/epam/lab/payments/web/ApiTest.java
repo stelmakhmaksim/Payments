@@ -1,4 +1,4 @@
-package com.epam.lab.payments.controllers;
+package com.epam.lab.payments.web;
 
 import com.epam.lab.payments.dao.UserRepository;
 import org.junit.Before;
@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.iterableWithSize;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -32,32 +33,32 @@ public class ApiTest {
     @Test
     public void usersControllerShouldReturnUsers() throws Exception {
         mockMvc.perform(get("/api/users"))
-                .andExpect(jsonPath("$.*.id", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.lastName", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.isAdmin", iterableWithSize(1)));
+                .andExpect(jsonPath("$.*.id", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.lastName", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.admin", iterableWithSize(greaterThan(1))));
     }
 
     @Test
     public void cardsControllerShouldReturnCards() throws Exception {
         mockMvc.perform(get("/api/cards"))
-                .andExpect(jsonPath("$.*.id", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.cardholderName", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.expiration", iterableWithSize(1)));
+                .andExpect(jsonPath("$.*.id", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.cardholderName", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.expiration", iterableWithSize(greaterThan(1))));
     }
 
     @Test
     public void accountsControllerShouldReturnAccounts() throws Exception {
-        mockMvc.perform(get("/api/bankAccounts"))
-                .andExpect(jsonPath("$.*.id", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.balance", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.isBlocked", iterableWithSize(1)));
+        mockMvc.perform(get("/api/accounts"))
+                .andExpect(jsonPath("$.*.id", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.balance", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.blocked", iterableWithSize(greaterThan(1))));
     }
 
     @Test
     public void ordersControllerShouldReturnOrders() throws Exception {
         mockMvc.perform(get("/api/orders"))
-                .andExpect(jsonPath("$.*.id", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.value", iterableWithSize(1)))
-                .andExpect(jsonPath("$.*.description", iterableWithSize(1)));
+                .andExpect(jsonPath("$.*.id", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.value", iterableWithSize(greaterThan(1))))
+                .andExpect(jsonPath("$.*.description", iterableWithSize(greaterThan(1))));
     }
 }
