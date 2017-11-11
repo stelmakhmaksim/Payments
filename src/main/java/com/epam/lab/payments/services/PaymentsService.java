@@ -58,4 +58,8 @@ public class PaymentsService {
     public List<BankAccountEntity> findAllBankAccounts() {
         return bankAccountRepository.findAll();
     }
+
+    public Optional<BankAccountEntity> findOneBankAccount(Integer accountId) {
+        return Optional.ofNullable(bankAccountRepository.findOne(accountId));
+    }
 }
