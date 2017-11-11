@@ -37,7 +37,7 @@ public class CreditCardEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    private BankAccountEntity bankAccount;
+    private BankAccountEntity account;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)

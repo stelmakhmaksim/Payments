@@ -1,15 +1,11 @@
 package com.epam.lab.payments.web;
 
-import com.epam.lab.payments.dao.BankAccountRepository;
-import com.epam.lab.payments.dao.CreditCardRepository;
-import com.epam.lab.payments.dao.OrderRepository;
-import com.epam.lab.payments.dao.UserRepository;
 import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.domain.CreditCardEntity;
 import com.epam.lab.payments.domain.OrderEntity;
 import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.services.PaymentsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +17,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 class PaymentsController {
-
-    @Autowired
-    PaymentsService paymentsService;
+    private final PaymentsService paymentsService;
 
     @GetMapping("/users")
     public List<UserEntity> getAllUsers() {
@@ -33,12 +28,26 @@ class PaymentsController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "id") Integer userId) {
-
         Optional<UserEntity> userEntity = paymentsService.findOneUser(userId);
         if (userEntity.isPresent()) {
             return ResponseEntity.ok().body(userEntity.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/user/{id}/cards")
+    public ResponseEntity<List<CreditCardEntity>> getCardsByUserId(@PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok().body(paymentsService.findCardsByUserId(userId));
+    }
+
+    @GetMapping("/account/{id}/cards")
+    public ResponseEntity<List<CreditCardEntity>> getCardsByAccountId(@PathVariable(value = "id") Integer accountId) {
+        return ResponseEntity.ok().body(paymentsService.findCardsByAccountId(accountId));
+    }
+
+    @GetMapping("/user/{id}/accounts")
+    public ResponseEntity<List<BankAccountEntity>> getAccountsByUserId(@PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok().body(paymentsService.findAccountsByUserId(userId));
     }
 
     @GetMapping("/cards")
@@ -49,6 +58,11 @@ class PaymentsController {
     @GetMapping("/orders")
     public ResponseEntity<List<OrderEntity>> getAllOrders() {
         return ResponseEntity.ok().body(paymentsService.findAllOrders());
+    }
+
+    @GetMapping("/account/{id}/orders")
+    public ResponseEntity<List<OrderEntity>> getOrdersByAccountId(@PathVariable(value = "id") Integer accountId) {
+        return ResponseEntity.ok().body(paymentsService.findOrdersByAccountId(accountId));
     }
 
     @GetMapping("/accounts")
