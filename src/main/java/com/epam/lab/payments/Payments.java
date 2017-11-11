@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 public class Payments {
     public static void main(String[] args) {
-        SpringApplication.run(Payments.class , args);
+        SpringApplication.run(Payments.class, args);
     }
 }
