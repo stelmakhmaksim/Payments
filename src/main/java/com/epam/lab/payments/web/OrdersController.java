@@ -1,4 +1,4 @@
-package com.epam.lab.payments.controllers;
+package com.epam.lab.payments.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

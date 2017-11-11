@@ -5,11 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class AccountsController {
+public class AccountDetailsController {
 
-    @RequestMapping("/accounts")
+    @RequestMapping("/account")
     public String cards(Model model) {
-        model.addAttribute("AccountsTitle", "Accounts:");
-        return "bankAccounts.html";
+        model.addAttribute("AccountDetails", "Account details:");
+        return "accountDetails.html";
     }
 }
