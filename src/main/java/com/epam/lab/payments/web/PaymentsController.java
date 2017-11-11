@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-class MainRestController {
+class PaymentsController {
 
     @Autowired
     PaymentsService paymentsService;
@@ -42,17 +42,17 @@ class MainRestController {
     }
 
     @GetMapping("/cards")
-    public List<CreditCardEntity> getAllCards() {
-        return paymentsService.findAllCreditCard();
+    public ResponseEntity<List<CreditCardEntity>> getAllCards() {
+        return ResponseEntity.ok().body(paymentsService.findAllCreditCard());
     }
 
     @GetMapping("/orders")
-    public List<OrderEntity> getAllOrders() {
-        return paymentsService.findAllOrders();
+    public ResponseEntity<List<OrderEntity>> getAllOrders() {
+        return ResponseEntity.ok().body(paymentsService.findAllOrders());
     }
 
     @GetMapping("/accounts")
-    public List<BankAccountEntity> getAllBankAccounts() {
-        return paymentsService.findAllBankAccounts();
+    public ResponseEntity<List<BankAccountEntity>> getAllBankAccounts() {
+        return ResponseEntity.ok().body(paymentsService.findAllBankAccounts());
     }
 }
