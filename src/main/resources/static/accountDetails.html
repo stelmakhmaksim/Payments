@@ -45,7 +45,7 @@
 		var pager_selector = "#grid-pager-cards";
 
 		jQuery(grid_selector).jqGrid({
-			url:'/api/cards',
+			url:'/api/user/2/cards',
 			datatype: "json",
 			colNames:['ID', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account'],
 			colModel:[
@@ -58,7 +58,7 @@
                     width:300
                 },
                 {
-                    jsonmap:'bankAccount.balance',
+                    jsonmap:'account.balance',
                     width:260
                 },
                 {

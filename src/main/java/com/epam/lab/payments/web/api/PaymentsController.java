@@ -1,4 +1,4 @@
-package com.epam.lab.payments.web;
+package com.epam.lab.payments.web.api;
 
 import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.domain.CreditCardEntity;
