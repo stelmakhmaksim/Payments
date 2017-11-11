@@ -10,11 +10,15 @@ import java.util.List;
 
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccountEntity, Integer> {
-    @Query(value = "select ba.id, ba.owner_name, ba.balance, ba.is_blocked " +
-            "    from bank_account as ba " +
-            "    inner join credit_card as cc on ba.id = cc.account_id " +
-            "    inner join user as u on cc.user_id = u.id " +
-            "        and u.id = :id",
+    @Query(value = "SELECT\n" +
+            "  \"ba\".\"id\",\n" +
+            "  \"ba\".\"owner_name\",\n" +
+            "  \"ba\".\"balance\",\n" +
+            "  \"ba\".\"is_blocked\"\n" +
+            "FROM \"user\" \"u\"\n" +
+            "  INNER JOIN \"credit_card\" \"cc\" ON \"u\".\"id\" = \"user_id\"\n" +
+            "  INNER JOIN \"bank_account\" \"ba\" ON \"account_id\" = \"ba\".\"id\"\n" +
+            "WHERE \"u\".\"id\" = :id",
             nativeQuery = true)
     List<BankAccountEntity> findByUserId(@Param("id") Integer userId);
 }
