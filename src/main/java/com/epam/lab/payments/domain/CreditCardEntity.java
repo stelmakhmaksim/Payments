@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "credit_card")
+@Table(name = "credit_card", schema = "public")
 @Data
 public class CreditCardEntity {
     @Id
@@ -37,5 +37,9 @@ public class CreditCardEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    private BankAccountEntity bankAccountByAccountId;
+    private BankAccountEntity bankAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private UserEntity user;
 }

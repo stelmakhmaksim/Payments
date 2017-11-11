@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order", schema = "public")
 @Data
 public class OrderEntity {
     @Id
@@ -41,5 +41,5 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    private BankAccountEntity bankAccountByAccountId;
+    private BankAccountEntity bankAccount;
 }
