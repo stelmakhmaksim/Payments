@@ -8,18 +8,14 @@ import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.domain.CreditCardEntity;
 import com.epam.lab.payments.domain.OrderEntity;
 import com.epam.lab.payments.domain.UserEntity;
-
-import lombok.AllArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import static lombok.AccessLevel.PACKAGE;
-
 @Service
+@RequiredArgsConstructor
 public class PaymentsService {
     private final UserRepository userRepository;
 
@@ -28,14 +24,6 @@ public class PaymentsService {
     private final OrderRepository orderRepository;
 
     private final BankAccountRepository bankAccountRepository;
-
-    @Autowired
-    public PaymentsService(UserRepository userRepository, CreditCardRepository creditCardRepository, OrderRepository orderRepository, BankAccountRepository bankAccountRepository) {
-        this.userRepository = userRepository;
-        this.creditCardRepository = creditCardRepository;
-        this.orderRepository = orderRepository;
-        this.bankAccountRepository = bankAccountRepository;
-    }
 
     public List<UserEntity> findAllUsers() {
         return userRepository.findAll();
