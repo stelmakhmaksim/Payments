@@ -23,6 +23,7 @@ class PaymentsController {
 
     @GetMapping("/users")
     public List<UserEntity> getAllUsers() {
+
         return paymentsService.findAllUsers();
     }
 
