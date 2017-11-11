@@ -19,57 +19,51 @@
 	<h1>{{CardsTitle}}</h1>
 	<div id="header"></div>
 	<div class="col-sm-10">
-		<table id="grid-table"></table>
-		<div id="grid-pager"></div>
+		<table id="grid-table-cards"></table>
+		<div id="grid-pager-cards"></div>
 	</div>
 </div>
 </body>
 
 <script type="text/javascript">
 	jQuery(function($) {
-		var grid_selector = "#grid-table";
-		var pager_selector = "#grid-pager";              
+		var grid_selector = "#grid-table-cards";
+		var pager_selector = "#grid-pager-cards";
 
 		jQuery(grid_selector).jqGrid({
 			url:'/api/cards',
 			datatype: "json",
-			colNames:['ID', 'Cardholder Name', 'Account Id', 'Expires at', 'Security Code', 'Account'],
+			colNames:['ID', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account'],
 			colModel:[
                 {
                     name:'id',
-                    index:'id',
                     width:30
                 },
                 {
                     name:'cardholderName',
-                    index:'cardholderName',
                     width:300
                 },
                 {
-                    name:'accountId',
-                    index:'accountId',
+                    jsonmap:'bankAccount.balance',
                     width:260
                 },
                 {
                     name:'expiration',
-                    index:'expiration',
                     width:100
                 },
                 {
                     name:'securityCode',
-                    index:'securityCode',
                     width:110
                 },
                 {
                     name:'id',
-                    index:'id',
                     width:200,
                     formatter:formatAccountsLink,
                     sortable:false
                 }
 			],
 			loadonce: true,
-			rowNum: 5,
+			rowNum: 10,
 			rowList:[10, 20, 30],
 			pager : pager_selector,
 			altRows: true,                                                 

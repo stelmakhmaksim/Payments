@@ -46,13 +46,25 @@ class MainRestController {
         return paymentsService.findAllCreditCard();
     }
 
+
     @GetMapping("/orders")
     public List<OrderEntity> getAllOrders() {
         return paymentsService.findAllOrders();
     }
 
+
     @GetMapping("/accounts")
     public List<BankAccountEntity> getAllBankAccounts() {
         return paymentsService.findAllBankAccounts();
+    }
+
+    @GetMapping("/account/{id}")
+    public ResponseEntity<BankAccountEntity> getAccountById(@PathVariable(value = "id") Integer accountId) {
+
+        Optional<BankAccountEntity> accountEntity = paymentsService.findOneBankAccount(accountId);
+        if (accountEntity.isPresent()) {
+            return ResponseEntity.ok().body(accountEntity.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 }
