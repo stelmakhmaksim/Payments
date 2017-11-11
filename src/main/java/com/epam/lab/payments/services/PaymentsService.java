@@ -46,4 +46,20 @@ public class PaymentsService {
     public List<BankAccountEntity> findAllBankAccounts() {
         return bankAccountRepository.findAll();
     }
+
+    public List<CreditCardEntity> findCardsByUserId(Integer userId) {
+        return creditCardRepository.findByUserId(userId);
+    }
+
+    public List<CreditCardEntity> findCardsByAccountId(Integer accountId) {
+        return creditCardRepository.findByAccountId(accountId);
+    }
+
+    public List<BankAccountEntity> findAccountsByUserId(Integer userId) {
+        return bankAccountRepository.findByUserId(userId);
+    }
+
+    public List<OrderEntity> findOrdersByAccountId(Integer accountId) {
+        return orderRepository.findByAccountId(accountId);
+    }
 }

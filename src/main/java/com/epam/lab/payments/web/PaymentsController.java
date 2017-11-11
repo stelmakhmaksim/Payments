@@ -35,6 +35,21 @@ class PaymentsController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/user/{id}/cards")
+    public ResponseEntity<List<CreditCardEntity>> getCardsByUserId(@PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok().body(paymentsService.findCardsByUserId(userId));
+    }
+
+    @GetMapping("/account/{id}/cards")
+    public ResponseEntity<List<CreditCardEntity>> getCardsByAccountId(@PathVariable(value = "id") Integer accountId) {
+        return ResponseEntity.ok().body(paymentsService.findCardsByAccountId(accountId));
+    }
+
+    @GetMapping("/user/{id}/accounts")
+    public ResponseEntity<List<BankAccountEntity>> getAccountsByUserId(@PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok().body(paymentsService.findAccountsByUserId(userId));
+    }
+
     @GetMapping("/cards")
     public ResponseEntity<List<CreditCardEntity>> getAllCards() {
         return ResponseEntity.ok().body(paymentsService.findAllCreditCard());
@@ -43,6 +58,11 @@ class PaymentsController {
     @GetMapping("/orders")
     public ResponseEntity<List<OrderEntity>> getAllOrders() {
         return ResponseEntity.ok().body(paymentsService.findAllOrders());
+    }
+
+    @GetMapping("/account/{id}/orders")
+    public ResponseEntity<List<OrderEntity>> getOrdersByAccountId(@PathVariable(value = "id") Integer accountId) {
+        return ResponseEntity.ok().body(paymentsService.findOrdersByAccountId(accountId));
     }
 
     @GetMapping("/accounts")
