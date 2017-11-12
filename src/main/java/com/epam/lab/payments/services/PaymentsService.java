@@ -33,7 +33,6 @@ public class PaymentsService {
         return Optional.ofNullable(userRepository.findOne(userId));
     }
 
-
     public List<CreditCardEntity> findAllCreditCard() {
         return creditCardRepository.findAll();
     }
