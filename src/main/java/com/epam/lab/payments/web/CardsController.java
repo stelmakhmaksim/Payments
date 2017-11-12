@@ -9,6 +9,6 @@ public class CardsController {
     @RequestMapping("/cards")
     public String cards(Model model) {
         model.addAttribute("CardsTitle", "Cards:");
-        return "creditCards.html";
+        return "creditCards";
     }
 }
