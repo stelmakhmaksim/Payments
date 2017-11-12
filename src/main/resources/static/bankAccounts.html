@@ -33,29 +33,32 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/user/2/accounts',
 			datatype: "json",
-			colNames:['ID', 'Owner Name', 'Balance', 'Is Blocked'],
+			colNames:['ID', 'Owner Name', 'Balance', 'Is Blocked', 'Orders'],
 			colModel:[
                 {
                     name:'id',
-                    index:'id',
                     width:30
                 },
                 {
                     name:'ownerName',
-                    index:'ownerName',
-                    width:300
-                },
-                {
-                    name:'balance',
-                    index:'balance',
-                    align:"right",
                     width:200
                 },
                 {
+                    name:'balance',
+                    align:"right",
+                    width:150
+                },
+                {
                     name:'blocked',
-                    index:'blocked',
                     template:'booleanCheckbox',
                     width:100
+                },
+                {
+                    name:'id',
+                    width:70,
+                    formatter:formatOrdersLink,
+                    sortable:false,
+                    align:'center'
                 }
 			],
 			loadonce: true,
@@ -90,6 +93,10 @@
 				if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
 			})
 		}
+
+		function formatOrdersLink(cellValue, options, rowObject) {
+            return "<a href='/orders'>orders</a>";
+        };
 	});
 </script>
 </html>

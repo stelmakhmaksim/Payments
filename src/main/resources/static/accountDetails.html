@@ -47,7 +47,7 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/user/2/cards',
 			datatype: "json",
-			colNames:['ID', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account'],
+			colNames:['ID', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account', 'Orders'],
 			colModel:[
                 {
                     name:'id',
@@ -59,11 +59,13 @@
                 },
                 {
                     jsonmap:'account.balance',
-                    width:260
+                    width:150,
+                    align:'right'
                 },
                 {
                     name:'expiration',
-                    width:100
+                    width:100,
+                    align:'center'
                 },
                 {
                     name:'securityCode',
@@ -74,6 +76,13 @@
                     width:200,
                     formatter:formatAccountsLink,
                     sortable:false
+                },
+                {
+                    name:'id',
+                    width:70,
+                    formatter:formatOrdersLink,
+                    sortable:false,
+                    align:'center'
                 }
 			],
 			loadonce: true,
@@ -112,6 +121,10 @@
         function formatAccountsLink(cellValue, options, rowObject) {
             return "<a href='/accounts'>account № " + cellValue + "</a>";
         };
+
+		function formatOrdersLink(cellValue, options, rowObject) {
+            return "<a href='/orders'>orders</a>";
+        };
 	});
 
 
@@ -124,7 +137,7 @@
 		var pager_selector = "#grid-pager-orders";
 
 		jQuery(grid_selector).jqGrid({
-			url:'/api/orders',
+			url:'/api/account/2/orders',
 			datatype: "json",
 			colNames:['ID', 'Date', 'Time', 'Value', 'Description'],
 			colModel:[
@@ -149,7 +162,7 @@
                     name:'value',
                     index:'value',
                     align:'right',
-                    width:200
+                    width:150
                 },
                 {
                     name:'description',

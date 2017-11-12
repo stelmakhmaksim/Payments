@@ -90,14 +90,16 @@
                     name:'id',
                     index:'id',
                     width:70,
-                    formatter:formatCardsLink
+                    formatter:formatCardsLink,
+                    align:'center'
                 },
                 {
                     name:'id',
                     index:'id',
                     width:80,
                     formatter:formatAccountsLink,
-                    sortable:false
+                    sortable:false,
+                    align:'center'
                 }
             ],
             loadonce: true,
@@ -154,7 +156,7 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/cards',
 			datatype: "json",
-			colNames:['ID', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account'],
+			colNames:['ID', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account', 'Orders'],
 			colModel:[
                 {
                     name:'id',
@@ -162,15 +164,17 @@
                 },
                 {
                     name:'cardholderName',
-                    width:300
+                    width:200
                 },
                 {
                     jsonmap:'account.balance',
-                    width:260
+                    width:150,
+                    align:'right'
                 },
                 {
                     name:'expiration',
-                    width:100
+                    width:100,
+                    align:'center'
                 },
                 {
                     name:'securityCode',
@@ -179,8 +183,15 @@
                 {
                     name:'id',
                     width:200,
-                    formatter:formatAccountsLink,
+                    formatter:formatAccountLink,
                     sortable:false
+                },
+                {
+                    name:'id',
+                    width:70,
+                    formatter:formatOrdersLink,
+                    sortable:false,
+                    align:'center'
                 }
 			],
 			loadonce: true,
@@ -216,8 +227,12 @@
 			})
 		}
 
-        function formatAccountsLink(cellValue, options, rowObject) {
+        function formatAccountLink(cellValue, options, rowObject) {
             return "<a href='/account'> account " + cellValue + "</a>";
+        };
+
+        function formatOrdersLink(cellValue, options, rowObject) {
+            return "<a href='/orders'>" + cellValue + " orders</a>";
         };
 	});
 
@@ -243,7 +258,7 @@
                 {
                     name:'ownerName',
                     index:'ownerName',
-                    width:300
+                    width:200
                 },
                 {
                     name:'balance',
@@ -262,13 +277,15 @@
                     name:'id',
                     index:'id',
                     width:70,
-                    formatter:formatCardsLink
+                    formatter:formatCardsLink,
+                    align:'center'
                 },
                 {
                     name:'id',
                     index:'id',
                     width:70,
-                    formatter:formatOrdersLink
+                    formatter:formatOrdersLink,
+                    align:'center'
                 }
 			],
 			loadonce: true,
