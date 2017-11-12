@@ -17,7 +17,7 @@
 
 <body>
 <div class="container" style="padding:50px 50px;">
-	<h1>{{OrdersTitle}}</h1>
+	<h1>Orders for account № ${accountId}</h1>
 	<div id="header"></div>
 	<div class="col-sm-10">
 		<table id="grid-table"></table>
@@ -73,7 +73,7 @@
 			altRows: true,                                                 
 			multiselect: true,
 			multiboxonly: true,
-			caption: "This user is the owner of the following accounts:",
+			caption: "This user has made the following orders:",
 			loadComplete : function() {
 					var table = this;
 					setTimeout(function(){

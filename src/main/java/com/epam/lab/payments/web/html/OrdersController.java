@@ -2,13 +2,15 @@ package com.epam.lab.payments.web.html;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class OrdersController {
-    @RequestMapping("/orders")
-    public String cards(Model model) {
-        model.addAttribute("OrdersTitle", "Orders:");
-        return "madeOrders.html";
+    @RequestMapping("/orders/{id}")
+    public String orders(@PathVariable("id") long id, Model model) {
+        model.addAttribute("accountId", id);
+        return "madeOrders";
     }
 }
