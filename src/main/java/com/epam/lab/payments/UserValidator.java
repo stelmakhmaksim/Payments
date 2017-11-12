@@ -26,7 +26,7 @@ public class UserValidator implements Validator {
         if (userEntity.getEmail().length() < 6 || userEntity.getEmail().length() > 32) {
             errors.rejectValue("username", "Size.userForm.username");
         }
-        if (authorizationService.findByUserEmail(userEntity.getEmail()) != null) {
+        if (authorizationService.findUserByEmail(userEntity.getEmail()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 

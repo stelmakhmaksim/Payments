@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthorizationService {
     private final UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void save(UserEntity userEntity) {
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         userRepository.save(userEntity);
     }
 
-    public UserEntity findByUserEmail(String email) {
+    public UserEntity findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 }
