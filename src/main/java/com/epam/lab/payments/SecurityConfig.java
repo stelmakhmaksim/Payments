@@ -1,6 +1,5 @@
 package com.epam.lab.payments;
 
-import com.epam.lab.payments.services.PaymentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +25,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login")).and().authorizeRequests()
-                .antMatchers("/dashboard").hasRole("USER").and().formLogin().defaultSuccessUrl("/dashboard")
-                .loginPage("/login").and().logout().permitAll();
+        http.csrf()
+                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login"))
+                .and()
+                .authorizeRequests()
+                .antMatchers("/dashboard").hasRole("USER")
+                .and()
+                .formLogin()
+                .defaultSuccessUrl("/dashboard")
+                .loginPage("/login")
+                .and()
+                .logout()
+                .permitAll();
     }
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
