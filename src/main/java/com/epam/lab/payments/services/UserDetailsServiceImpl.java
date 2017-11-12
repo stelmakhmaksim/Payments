@@ -12,20 +12,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service(value = "userDetailService")
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
-
-    private List getAuthority() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
+    
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
@@ -39,7 +33,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return new User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
     }
-//    public List getUsers() {
-//        return userRepository.getUserDetails();
-//    }
 }
