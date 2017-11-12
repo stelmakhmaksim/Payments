@@ -30,23 +30,23 @@ class PaymentsController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable(value = "id") Integer userId) {
         Optional<UserDTO> userEntity = paymentsService.findOneUser(userId);
         if (userEntity.isPresent()) {
-            return ResponseEntity.ok().body(userEntity.get());
+            return ResponseEntity.ok(userEntity.get());
         }
         return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/cards")
     public ResponseEntity<List<CreditCardDTO>> getAllCards() {
-        return ResponseEntity.ok().body(paymentsService.findAllCreditCard());
+        return ResponseEntity.ok(paymentsService.findAllCreditCard());
     }
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> getAllOrders() {
-        return ResponseEntity.ok().body(paymentsService.findAllOrders());
+        return ResponseEntity.ok(paymentsService.findAllOrders());
     }
 
     @GetMapping("/accounts")
     public ResponseEntity<List<BankAccountDTO>> getAllBankAccounts() {
-        return ResponseEntity.ok().body(paymentsService.findAllBankAccounts());
+        return ResponseEntity.ok(paymentsService.findAllBankAccounts());
     }
 }
