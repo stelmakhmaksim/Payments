@@ -3,10 +3,12 @@ package com.epam.lab.payments;
 import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.services.AuthorizationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+@Component
 @RequiredArgsConstructor
 public class UserValidator implements Validator {
     private final AuthorizationService authorizationService;
