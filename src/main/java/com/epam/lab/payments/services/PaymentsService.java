@@ -47,7 +47,19 @@ public class PaymentsService {
         return bankAccountRepository.findAll();
     }
 
-    public Optional<BankAccountEntity> findOneBankAccount(Integer accountId) {
-        return Optional.ofNullable(bankAccountRepository.findOne(accountId));
+    public List<CreditCardEntity> findCardsByUserId(Integer userId) {
+        return creditCardRepository.findByUserId(userId);
+    }
+
+    public List<CreditCardEntity> findCardsByAccountId(Integer accountId) {
+        return creditCardRepository.findByAccountId(accountId);
+    }
+
+    public List<BankAccountEntity> findAccountsByUserId(Integer userId) {
+        return bankAccountRepository.findByUserId(userId);
+    }
+
+    public List<OrderEntity> findOrdersByAccountId(Integer accountId) {
+        return orderRepository.findByAccountId(accountId);
     }
 }

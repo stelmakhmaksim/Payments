@@ -23,6 +23,7 @@ class PaymentsController {
 
     @GetMapping("/users")
     public List<UserEntity> getAllUsers() {
+
         return paymentsService.findAllUsers();
     }
 
@@ -30,23 +31,43 @@ class PaymentsController {
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "id") Integer userId) {
         Optional<UserEntity> userEntity = paymentsService.findOneUser(userId);
         if (userEntity.isPresent()) {
-            return ResponseEntity.ok().body(userEntity.get());
+            return ResponseEntity.ok(userEntity.get());
         }
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/user/{id}/cards")
+    public ResponseEntity<List<CreditCardEntity>> getCardsByUserId(@PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok(paymentsService.findCardsByUserId(userId));
+    }
+
+    @GetMapping("/account/{id}/cards")
+    public ResponseEntity<List<CreditCardEntity>> getCardsByAccountId(@PathVariable(value = "id") Integer accountId) {
+        return ResponseEntity.ok(paymentsService.findCardsByAccountId(accountId));
+    }
+
+    @GetMapping("/user/{id}/accounts")
+    public ResponseEntity<List<BankAccountEntity>> getAccountsByUserId(@PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok(paymentsService.findAccountsByUserId(userId));
+    }
+
     @GetMapping("/cards")
     public ResponseEntity<List<CreditCardEntity>> getAllCards() {
-        return ResponseEntity.ok().body(paymentsService.findAllCreditCard());
+        return ResponseEntity.ok(paymentsService.findAllCreditCard());
     }
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderEntity>> getAllOrders() {
-        return ResponseEntity.ok().body(paymentsService.findAllOrders());
+        return ResponseEntity.ok(paymentsService.findAllOrders());
+    }
+
+    @GetMapping("/account/{id}/orders")
+    public ResponseEntity<List<OrderEntity>> getOrdersByAccountId(@PathVariable(value = "id") Integer accountId) {
+        return ResponseEntity.ok(paymentsService.findOrdersByAccountId(accountId));
     }
 
     @GetMapping("/accounts")
     public ResponseEntity<List<BankAccountEntity>> getAllBankAccounts() {
-        return ResponseEntity.ok().body(paymentsService.findAllBankAccounts());
+        return ResponseEntity.ok(paymentsService.findAllBankAccounts());
     }
 }

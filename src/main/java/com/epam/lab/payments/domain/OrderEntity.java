@@ -41,5 +41,5 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    private BankAccountEntity bankAccount;
+    private BankAccountEntity account;
 }
