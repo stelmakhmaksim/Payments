@@ -37,20 +37,15 @@ function formatAccountNumber(cellValue, options, rowObject) {
 
 // cards
 function formatCardsLink(cellValue, options, rowObject) {
-    return "<a href='/cards'>cards</a>";
+    return "<a href='/cards/" + cellValue + "'>cards</a>";
 };
 
 // orders
 function formatOrdersLink(cellValue, options, rowObject) {
-    return "<a href='/orders'>orders</a>";
+    return "<a href='/orders/" + cellValue + "'>orders</a>";
 };
 
 // account link
 function formatAccountLink(cellValue, options, rowObject) {
     return "<a href='/account'>" + digitsOf16(cellValue) + "</a>";
-};
-
-// accounts link
-function formatAccountsLink(cellValue, options, rowObject) {
-    return "<a href='/accounts'>account № " + cellValue + "</a>";
 };
