@@ -1,4 +1,4 @@
-package com.epam.lab.payments.web;
+package com.epam.lab.payments.web.html;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,6 @@ public class CardsController {
     @RequestMapping("/cards")
     public String cards(Model model) {
         model.addAttribute("CardsTitle", "Cards:");
-        return "creditCards.html";
+        return "creditCards";
     }
 }

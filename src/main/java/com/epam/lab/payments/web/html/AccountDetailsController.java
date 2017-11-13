@@ -10,6 +10,6 @@ public class AccountDetailsController {
     @RequestMapping("/account")
     public String cards(Model model) {
         model.addAttribute("AccountDetails", "Account details:");
-        return "accountDetails.html";
+        return "accountDetails";
     }
 }
