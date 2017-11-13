@@ -3,6 +3,7 @@ package com.epam.lab.payments.services;
 import com.epam.lab.payments.dao.UserRepository;
 import com.epam.lab.payments.domain.UserEntity;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 @Service(value = "userDetailService")
 @RequiredArgsConstructor
+@Log4j
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
     
@@ -33,6 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } else {
             grantedAuthorities.add(new SimpleGrantedAuthority("user"));
         }
+        log.info("Load user by user email " + userEmail);
         return new User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
     }
 }
