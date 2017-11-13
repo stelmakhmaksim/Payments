@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BankAccountMapper {
     List<BankAccountDTO> accountsToAccountsDto(List<BankAccountEntity> accounts);
 
