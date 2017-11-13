@@ -11,6 +11,6 @@ public class IndexController {
     @RequestMapping("/")
     public String index(@RequestParam(value="UsersTitle", required=false, defaultValue="Users") String name, Model model) {
         model.addAttribute("UsersTitle", "Users:");
-        return "index";
+        return "admin";
     }
 }
