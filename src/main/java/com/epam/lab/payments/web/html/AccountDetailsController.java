@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountDetailsController {
 
     @RequestMapping("/account")
-    public String cards(Model model) {
+    public String account(Model model) {
+
         model.addAttribute("AccountDetails", "Account details:");
-        return "accountDetails";
+
+        return "reports/accountDetails";
     }
 }

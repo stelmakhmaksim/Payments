@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="http://klever-hotel.ru/css/card.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
-    <script src="../js/formatters.js"></script>
+    <script src="js/formatters.js"></script>
 </head>
 
 <body>
@@ -185,7 +185,7 @@
 			altRows: true,
 			multiselect: true,
 			multiboxonly: true,
-			caption: "Full list of cards:",
+			caption: "This user is the owner of the following cards:",
 			loadComplete : function() {
 					var table = this;
 					setTimeout(function(){
@@ -255,7 +255,7 @@
 			altRows: true,
 			multiselect: true,
 			multiboxonly: true,
-			caption: "Full list of accounts:",
+			caption: "This user is the owner of the following accounts:",
 			loadComplete : function() {
 					var table = this;
 					setTimeout(function(){

@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SecurityService {
     private final AuthenticationManager authenticationManager;
-
-
     private final UserDetailsService userDetailsService;
 
     public String findLoggedInUsername() {
