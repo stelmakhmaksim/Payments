@@ -23,31 +23,33 @@ class PaymentsController {
 
     @GetMapping("/users")
     public List<UserEntity> getAllUsers() {
-
         return paymentsService.findAllUsers();
+
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "id") Integer userId) {
+    public ResponseEntity<UserEntity> getUserById(
+            @PathVariable(value = "id") Integer userId) {
         Optional<UserEntity> userEntity = paymentsService.findOneUser(userId);
-        if (userEntity.isPresent()) {
-            return ResponseEntity.ok(userEntity.get());
-        }
-        return ResponseEntity.notFound().build();
+        return userEntity.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/user/{id}/cards")
-    public ResponseEntity<List<CreditCardEntity>> getCardsByUserId(@PathVariable(value = "id") Integer userId) {
+    public ResponseEntity<List<CreditCardEntity>> getCardsByUserId(
+            @PathVariable(value = "id") Integer userId) {
         return ResponseEntity.ok(paymentsService.findCardsByUserId(userId));
     }
 
     @GetMapping("/account/{id}/cards")
-    public ResponseEntity<List<CreditCardEntity>> getCardsByAccountId(@PathVariable(value = "id") Integer accountId) {
+    public ResponseEntity<List<CreditCardEntity>> getCardsByAccountId(
+            @PathVariable(value = "id") Integer accountId) {
         return ResponseEntity.ok(paymentsService.findCardsByAccountId(accountId));
     }
 
     @GetMapping("/user/{id}/accounts")
-    public ResponseEntity<List<BankAccountEntity>> getAccountsByUserId(@PathVariable(value = "id") Integer userId) {
+    public ResponseEntity<List<BankAccountEntity>> getAccountsByUserId(
+            @PathVariable(value = "id") Integer userId) {
         return ResponseEntity.ok(paymentsService.findAccountsByUserId(userId));
     }
 
@@ -62,7 +64,8 @@ class PaymentsController {
     }
 
     @GetMapping("/account/{id}/orders")
-    public ResponseEntity<List<OrderEntity>> getOrdersByAccountId(@PathVariable(value = "id") Integer accountId) {
+    public ResponseEntity<List<OrderEntity>> getOrdersByAccountId(
+            @PathVariable(value = "id") Integer accountId) {
         return ResponseEntity.ok(paymentsService.findOrdersByAccountId(accountId));
     }
 
