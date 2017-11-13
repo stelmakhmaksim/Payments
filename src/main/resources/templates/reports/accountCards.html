@@ -17,7 +17,7 @@
 
 <body>
 <div class="container" style="padding:50px 50px;">
-    <h1 th:text="'Cards of account № [' + ${accountNumber} + ']'"></h1>
+    <h1 th:text="'Cards of the account № [' + ${accountNumber} + ']'"></h1>
     <BR>
     <div id="header"></div>
     <div class="col-sm-10">
@@ -82,7 +82,7 @@
             altRows: true,
             multiselect: true,
             multiboxonly: true,
-            caption: "This user is the owner of the following cards:",
+            caption: "On this account the following cards were issued:",
             loadComplete : function() {
                     var table = this;
                     setTimeout(function(){

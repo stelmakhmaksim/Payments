@@ -47,5 +47,5 @@ function formatOrdersLink(cellValue, options, rowObject) {
 
 // account link
 function formatAccountLink(cellValue, options, rowObject) {
-    return "<a href='/account'>" + digitsOf16(cellValue) + "</a>";
+    return "<a href='/account/" + cellValue + "'>" + digitsOf16(cellValue) + "</a>";
 };

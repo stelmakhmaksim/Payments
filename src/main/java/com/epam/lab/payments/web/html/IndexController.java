@@ -10,8 +10,6 @@ public class IndexController {
     @RequestMapping("/adminPanel")
     public String admin(Model model) {
 
-        model.addAttribute("AccountDetails", "Account details:");
-
         return "reports/admin";
     }
 }
