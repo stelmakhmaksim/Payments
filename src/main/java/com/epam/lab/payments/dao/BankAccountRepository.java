@@ -18,7 +18,12 @@ public interface BankAccountRepository extends JpaRepository<BankAccountEntity, 
             "FROM \"user\" \"u\"\n" +
             "  INNER JOIN \"credit_card\" \"cc\" ON \"u\".\"id\" = \"user_id\"\n" +
             "  INNER JOIN \"bank_account\" \"ba\" ON \"account_id\" = \"ba\".\"id\"\n" +
-            "WHERE \"u\".\"id\" = :id",
+            "WHERE \"u\".\"id\" = :id\n" +
+            "GROUP BY" +
+            "\"ba\".\"id\",\n" +
+            "\"ba\".\"owner_name\",\n" +
+            "\"ba\".\"balance\",\n" +
+            "\"ba\".\"is_blocked\"",
             nativeQuery = true)
     List<BankAccountEntity> findByUserId(@Param("id") Integer userId);
 }
