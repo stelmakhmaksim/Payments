@@ -49,3 +49,12 @@ function formatOrdersLink(cellValue, options, rowObject) {
 function formatAccountLink(cellValue, options, rowObject) {
     return "<a href='/account/" + cellValue + "'>" + digitsOf16(cellValue) + "</a>";
 };
+
+
+function formatUserCardsLink(cellValue, options, rowObject) {
+    return "<a href='/userCards/" + cellValue + "'>cards</a>";
+};
+
+function formatUserAccountsLink(cellValue, options, rowObject) {
+    return "<a href='/userAccounts/" + cellValue + "'>accounts</a>";
+};
