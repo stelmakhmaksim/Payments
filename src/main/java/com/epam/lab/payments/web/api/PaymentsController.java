@@ -10,8 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +48,15 @@ class PaymentsController {
     public ResponseEntity<List<CreditCardDTO>> getCardsByAccountId(
             @PathVariable(value = "id") Integer accountId) {
         return ResponseEntity.ok(paymentsService.findCardsByAccountId(accountId));
+    }
+
+    @RequestMapping(value = "/account", method = RequestMethod.PUT)
+    public ModelAndView updateAccount(BankAccountDTO accountDTO, HttpServletRequest request) {
+        paymentsService.update(accountDTO);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
     }
 
     @GetMapping("/user/{id}/accounts")

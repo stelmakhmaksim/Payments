@@ -4,6 +4,7 @@ import com.epam.lab.payments.dao.BankAccountRepository;
 import com.epam.lab.payments.dao.CreditCardRepository;
 import com.epam.lab.payments.dao.OrderRepository;
 import com.epam.lab.payments.dao.UserRepository;
+import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.dto.BankAccountDTO;
 import com.epam.lab.payments.dto.CreditCardDTO;
 import com.epam.lab.payments.dto.OrderDTO;
@@ -73,5 +74,11 @@ public class PaymentsService {
 
     public List<OrderDTO> findOrdersByAccountId(Integer accountId) {
         return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
+    }
+
+    public void update(BankAccountDTO accountDTO) {
+        BankAccountEntity oldAccount = bankAccountRepository.findOne(accountDTO.getId());
+        oldAccount.setBlocked(accountDTO.isBlocked());
+        bankAccountRepository.save(oldAccount);
     }
 }
