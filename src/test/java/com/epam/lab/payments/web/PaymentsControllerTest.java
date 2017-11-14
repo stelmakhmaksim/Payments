@@ -1,6 +1,7 @@
-package com.epam.lab.payments;
+package com.epam.lab.payments.web;
 
 
+import com.epam.lab.payments.Payments;
 import com.epam.lab.payments.dao.UserRepository;
 import com.epam.lab.payments.domain.UserEntity;
 import org.junit.Assert;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,6 +28,7 @@ import java.util.Arrays;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Payments.class)
 @WebAppConfiguration
+@WithMockUser(roles="user")
 public class PaymentsControllerTest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
