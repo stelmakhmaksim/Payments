@@ -71,7 +71,7 @@ public class AuthorizationController {
 
         Principal principal = request.getUserPrincipal();
         if (user.getEmail() == principal.getName()) {
-            authorizationService.save(user);
+            authorizationService.update(user);
         }
         modelAndView.setViewName("/account");
         return modelAndView;
