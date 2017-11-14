@@ -216,12 +216,15 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     jQuery(function($) {
-        var grid_selector = "#grid-table-users";
-        var pager_selector = "#grid-pager-users";
+        var grid_selector = "#grid-table-accounts";
+        var pager_selector = "#grid-pager-accounts";
 
         $("#grid-table-accounts").jqGrid({
             url:'/api/accounts',
-            editurl:'/account',
+            editurl:'api/account',
+            inlineEditing: {
+                mtype: "PUT"
+            },
             datatype: "json",
             colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
             colModel:[
@@ -277,7 +280,6 @@
         });
 
         var lastSelection;
-
         function editRow(id) {
             if (id && id !== lastSelection) {
                 var grid = $("#grid-table-accounts");
