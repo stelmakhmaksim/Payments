@@ -5,6 +5,7 @@ import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.AuthorizationService;
 import com.epam.lab.payments.services.SecurityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,14 @@ import static com.epam.lab.payments.Constants.REGISTRATION;
 
 @Controller
 @RequiredArgsConstructor
+@Log4j
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
+
     private final SecurityService securityService;
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
-    public ModelAndView registration(){
+    public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
         UserDTO user = new UserDTO();
         modelAndView.addObject("user", user);
@@ -41,19 +44,23 @@ public class AuthorizationController {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("user", user);
-            modelAndView.addObject("successMessage", "Some fields has errors");
+            modelAndView.addObject("successMessage",
+                    "Some fields have errors");
             modelAndView.setViewName(REGISTRATION);
+            log.debug("Some fields when registering user " + user + "filled incorrectly");
         } else {
             authorizationService.save(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage",
+                    "User has been registered successfully");
             modelAndView.addObject("user", new UserDTO());
             modelAndView.setViewName(REGISTRATION);
+            log.debug("User " + user + "has been registered successfully");
         }
         return modelAndView;
     }
 
-    @RequestMapping(value={"/", LOGIN}, method = RequestMethod.GET)
-    public ModelAndView login(HttpServletRequest request){
+    @RequestMapping(value = {"/", LOGIN}, method = RequestMethod.GET)
+    public ModelAndView login(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
 
         Principal principal = request.getUserPrincipal();

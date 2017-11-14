@@ -23,14 +23,11 @@ import static com.epam.lab.payments.Constants.ROLE_USER;
 @Log4j
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
-    
+
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userEmail) {
         UserEntity userEntity = userRepository.findByEmail(userEmail);
-
-        System.out.println("userEmail '" + userEmail + "'");
-        System.out.println(userEntity);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         if (userEntity.isAdmin()) {
@@ -38,8 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } else {
             grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_USER));
         }
-        log.info("Load user by user email " + userEmail);
-        System.out.println(grantedAuthorities);
+        log.info("Load user by user email " + userEmail + ". Access level: " + grantedAuthorities);
         return new User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
     }
 }

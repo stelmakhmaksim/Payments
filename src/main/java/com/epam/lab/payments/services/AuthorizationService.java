@@ -26,7 +26,7 @@ public class AuthorizationService {
     }
 
     public UserDTO findUserByEmail(String email) {
-        log.info("Save login " + email);
+        log.info("User by email " + email + "was successfully found");
         return userMapper.userToUserDto(userRepository.findByEmail(email));
     }
 
@@ -39,6 +39,7 @@ public class AuthorizationService {
             oldUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         userRepository.save(oldUser);
+        log.info("Update user " + oldUser);
     }
 
 }

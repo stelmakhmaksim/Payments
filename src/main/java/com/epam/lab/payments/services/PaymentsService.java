@@ -46,7 +46,7 @@ public class PaymentsService {
     }
 
     public Optional<UserDTO> findOneUser(Integer userId) {
-        log.info("User was successfully found");
+        log.info("User by id " + userId + " was successfully found");
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findOne(userId)));
     }
 
@@ -56,22 +56,22 @@ public class PaymentsService {
     }
 
     public Optional<UserDTO> findUserByEmail(String email) {
-        log.info("All users by email were successfully found");
+        log.info("User by email " + email + " was successfully found");
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findByEmail(email)));
     }
 
     public List<CreditCardDTO> findCardsByUserId(Integer userId) {
-        log.info("All cards by userId were successfully found");
+        log.info("All cards by userId " + userId + " were successfully found");
         return cardMapper.cardsToCardsDto(creditCardRepository.findByUserId(userId));
     }
 
     public List<CreditCardDTO> findCardsByAccountId(Integer accountId) {
-        log.info("All cards by accountId were successfully found");
+        log.info("All cards by accountId " + accountId + " were successfully found");
         return cardMapper.cardsToCardsDto(creditCardRepository.findByAccountId(accountId));
     }
 
     public List<BankAccountDTO> findAccountsByUserId(Integer userId) {
-        log.info("All accounts by userId were successfully found");
+        log.info("All accounts by userId " + userId + " were successfully found");
         return accountMapper.accountsToAccountsDto(bankAccountRepository.findByUserId(userId));
     }
 
@@ -86,7 +86,7 @@ public class PaymentsService {
     }
 
     public List<OrderDTO> findOrdersByAccountId(Integer accountId) {
-        log.info("All orders by AccountId were successfully found");
+        log.info("All orders by AccountId " + accountId + " were successfully found");
         return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
     }
 }
