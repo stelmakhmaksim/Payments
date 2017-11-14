@@ -7,9 +7,12 @@ import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.services.PaymentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,7 +30,24 @@ class PaymentsController {
         return paymentsService.findAllUsers();
     }
 
-    @GetMapping("/user/{id}")
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<UserEntity> getUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail;
+        if (principal instanceof UserDetails) {
+            userEmail = ((UserDetails)principal).getUsername();
+        } else {
+            userEmail = principal.toString();
+        }
+
+        Optional<UserEntity> userEntity = paymentsService.findUserByEmail(userEmail);
+        if (userEntity.isPresent()) {
+            return ResponseEntity.ok(userEntity.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "id") Integer userId) {
         Optional<UserEntity> userEntity = paymentsService.findOneUser(userId);
         if (userEntity.isPresent()) {

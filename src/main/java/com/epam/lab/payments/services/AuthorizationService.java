@@ -20,4 +20,16 @@ public class AuthorizationService {
     public UserEntity findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public void update(UserEntity user) {
+        UserEntity oldUser = userRepository.findByEmail(user.getEmail());
+        if (!user.getPhone().isEmpty()) {
+            oldUser.setPhone(user.getPhone());
+        }
+        if (!user.getPassword().isEmpty()) {
+            oldUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+        userRepository.save(user);
+    }
+
 }
