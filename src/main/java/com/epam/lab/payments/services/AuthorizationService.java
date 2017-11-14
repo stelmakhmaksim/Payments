@@ -1,6 +1,7 @@
 package com.epam.lab.payments.services;
 
 import com.epam.lab.payments.dao.UserRepository;
+import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthorizationService {
         return userMapper.userToUserDto(userRepository.findByEmail(email));
     }
 
-    public void update(UserEntity user) {
+    public void update(UserDTO user) {
         UserEntity oldUser = userRepository.findByEmail(user.getEmail());
         if (!user.getPhone().isEmpty()) {
             oldUser.setPhone(user.getPhone());

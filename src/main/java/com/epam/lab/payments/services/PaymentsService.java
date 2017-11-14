@@ -48,7 +48,7 @@ public class PaymentsService {
     }
 
     public Optional<UserDTO> findUserByEmail(String email) {
-        return Optional.ofNullable(userRepository.findByEmail(email));
+        return Optional.ofNullable(userMapper.userToUserDto(userRepository.findByEmail(email)));
     }
 
     public List<CreditCardDTO> findCardsByUserId(Integer userId) {
