@@ -1,7 +1,7 @@
 package com.epam.lab.payments.web;
 
 import com.epam.lab.payments.UserValidator;
-import com.epam.lab.payments.domain.UserEntity;
+import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.AuthorizationService;
 import com.epam.lab.payments.services.SecurityService;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +27,14 @@ public class AuthorizationController {
     @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
-        UserEntity user = new UserEntity();
+        UserDTO user = new UserDTO();
         modelAndView.addObject("user", user);
         modelAndView.setViewName(REGISTRATION);
         return modelAndView;
     }
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid UserEntity user, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@Valid UserDTO user, BindingResult bindingResult) {
         UserValidator userValidator = new UserValidator(authorizationService);
         ModelAndView modelAndView = new ModelAndView();
 
@@ -46,7 +46,7 @@ public class AuthorizationController {
         } else {
             authorizationService.save(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new UserEntity());
+            modelAndView.addObject("user", new UserDTO());
             modelAndView.setViewName(REGISTRATION);
         }
         return modelAndView;
@@ -58,7 +58,7 @@ public class AuthorizationController {
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            modelAndView.setViewName("/reports/admin");
+            modelAndView.setViewName("reports/accountDetails");
         } else {
             modelAndView.setViewName(LOGIN);
         }
@@ -66,14 +66,14 @@ public class AuthorizationController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public ModelAndView updateUser(UserEntity user, HttpServletRequest request) {
+    public ModelAndView updateUser(UserDTO user, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
 
         Principal principal = request.getUserPrincipal();
-        if (user.getEmail() == principal.getName()) {
+        if (user.getEmail().equals(principal.getName())) {
             authorizationService.update(user);
         }
-        modelAndView.setViewName("/account");
+        modelAndView.setViewName("reports/accountDetails");
         return modelAndView;
     }
 
