@@ -5,6 +5,7 @@ import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.AuthorizationService;
 import com.epam.lab.payments.services.SecurityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,12 +53,12 @@ public class AuthorizationController {
         return modelAndView;
     }
 
-    @RequestMapping(value={"/", LOGIN}, method = RequestMethod.GET)
+    @RequestMapping(value={"/", LOGIN, REGISTRATION}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
 
-        Principal principal = request.getUserPrincipal();
-        if (principal != null) {
+        boolean isLogged = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+        if (isLogged) {
             modelAndView.setViewName("reports/accountDetails");
         } else {
             modelAndView.setViewName(LOGIN);

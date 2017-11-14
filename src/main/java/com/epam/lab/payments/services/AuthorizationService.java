@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorizationService {
@@ -22,8 +24,8 @@ public class AuthorizationService {
         userRepository.save(userMapper.userDtoToUser(userDTO));
     }
 
-    public UserDTO findUserByEmail(String email) {
-        return userMapper.userToUserDto(userRepository.findByEmail(email));
+    public Optional<UserDTO> findUserByEmail(String email) {
+        return Optional.ofNullable(userMapper.userToUserDto(userRepository.findByEmail(email)));
     }
 
     public void update(UserDTO user) {
