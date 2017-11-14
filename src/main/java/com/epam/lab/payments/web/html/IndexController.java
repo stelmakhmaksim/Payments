@@ -9,7 +9,6 @@ public class IndexController {
 
     @RequestMapping("/admin/panel")
     public String admin(Model model) {
-
         return "reports/admin";
     }
 }

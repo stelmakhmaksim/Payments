@@ -36,7 +36,7 @@ public class DefaultController {
 
         if (isAdmin) {
             return "reports/admin";
-        } else if (isUser){
+        } else if (isUser) {
             model.addAttribute("accountId", "1234567890");
             model.addAttribute("accountNumber", CardNumberAdjuster.valueOf16Digits("1234567890"));
 
@@ -45,7 +45,5 @@ public class DefaultController {
             model.addAttribute("error", "Authorization Error");
             return "error";
         }
-
-
     }
 }

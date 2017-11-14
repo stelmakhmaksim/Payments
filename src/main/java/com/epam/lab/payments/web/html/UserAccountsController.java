@@ -10,9 +10,7 @@ public class UserAccountsController {
 
     @RequestMapping("/userAccounts/{id}")
     public String accounts(@PathVariable("id") String id, Model model) {
-
         model.addAttribute("userId", id);
-
         return "reports/userAccounts";
     }
 }

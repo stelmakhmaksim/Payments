@@ -11,10 +11,8 @@ public class OrdersController {
 
     @RequestMapping("/orders/{id}")
     public String orders(@PathVariable("id") String id, Model model) {
-
         model.addAttribute("accountId", id);
         model.addAttribute("accountNumber", CardNumberAdjuster.valueOf16Digits(id));
-
         return "reports/madeOrders";
     }
 }

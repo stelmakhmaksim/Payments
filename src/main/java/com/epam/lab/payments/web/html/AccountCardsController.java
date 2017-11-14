@@ -11,10 +11,8 @@ public class AccountCardsController {
 
     @RequestMapping("/cards/{id}")
     public String cards(@PathVariable("id") String id, Model model) {
-
         model.addAttribute("accountId", id);
         model.addAttribute("accountNumber", CardNumberAdjuster.valueOf16Digits(id));
-
         return "reports/accountCards";
     }
 }
