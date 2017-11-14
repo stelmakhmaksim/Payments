@@ -81,4 +81,8 @@ public class PaymentsService {
         oldAccount.setBlocked(accountDTO.isBlocked());
         bankAccountRepository.save(oldAccount);
     }
+
+    public void create(OrderDTO orderDTO) {
+        orderRepository.save(orderMapper.orderDtoToOrder(orderDTO));
+    }
 }

@@ -27,7 +27,6 @@ class PaymentsController {
     @GetMapping("/users")
     public List<UserDTO> getAllUsers() {
         return paymentsService.findAllUsers();
-
     }
 
     @GetMapping("/user/{id}")
@@ -36,6 +35,14 @@ class PaymentsController {
         Optional<UserDTO> userEntity = paymentsService.findOneUser(userId);
         return userEntity.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @RequestMapping(value = "/account", method = RequestMethod.PUT)
+    public ModelAndView updateAccount(BankAccountDTO accountDTO, HttpServletRequest request) {
+        paymentsService.update(accountDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
     }
 
     @GetMapping("/user/{id}/cards")
@@ -50,15 +57,6 @@ class PaymentsController {
         return ResponseEntity.ok(paymentsService.findCardsByAccountId(accountId));
     }
 
-    @RequestMapping(value = "/account", method = RequestMethod.PUT)
-    public ModelAndView updateAccount(BankAccountDTO accountDTO, HttpServletRequest request) {
-        paymentsService.update(accountDTO);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("reports/accountDetails");
-        return modelAndView;
-    }
-
     @GetMapping("/user/{id}/accounts")
     public ResponseEntity<List<BankAccountDTO>> getAccountsByUserId(
             @PathVariable(value = "id") Integer userId) {
@@ -68,6 +66,14 @@ class PaymentsController {
     @GetMapping("/cards")
     public ResponseEntity<List<CreditCardDTO>> getAllCards() {
         return ResponseEntity.ok(paymentsService.findAllCreditCard());
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    public ModelAndView updateAccount(OrderDTO orderDTO, HttpServletRequest request) {
+        paymentsService.create(orderDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
     }
 
     @GetMapping("/orders")
