@@ -29,7 +29,7 @@ public class AuthorizationService {
         if (!user.getPassword().isEmpty()) {
             oldUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
-        userRepository.save(user);
+        userRepository.save(oldUser);
     }
 
 }
