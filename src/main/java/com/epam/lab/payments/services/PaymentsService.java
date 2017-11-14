@@ -4,10 +4,14 @@ import com.epam.lab.payments.dao.BankAccountRepository;
 import com.epam.lab.payments.dao.CreditCardRepository;
 import com.epam.lab.payments.dao.OrderRepository;
 import com.epam.lab.payments.dao.UserRepository;
-import com.epam.lab.payments.domain.BankAccountEntity;
-import com.epam.lab.payments.domain.CreditCardEntity;
-import com.epam.lab.payments.domain.OrderEntity;
-import com.epam.lab.payments.domain.UserEntity;
+import com.epam.lab.payments.dto.BankAccountDTO;
+import com.epam.lab.payments.dto.CreditCardDTO;
+import com.epam.lab.payments.dto.OrderDTO;
+import com.epam.lab.payments.dto.UserDTO;
+import com.epam.lab.payments.mappers.BankAccountMapper;
+import com.epam.lab.payments.mappers.CreditCardMapper;
+import com.epam.lab.payments.mappers.OrderMapper;
+import com.epam.lab.payments.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
@@ -27,49 +31,62 @@ public class PaymentsService {
 
     private final BankAccountRepository bankAccountRepository;
 
-    public List<UserEntity> findAllUsers() {
+    private final UserMapper userMapper;
+
+    private final CreditCardMapper cardMapper;
+
+    private final BankAccountMapper accountMapper;
+
+    private final OrderMapper orderMapper;
+
+
+    public List<UserDTO> findAllUsers() {
         log.info("All users were successfully found");
-        return userRepository.findAll();
+        return userMapper.usersToUsersDto(userRepository.findAll());
     }
 
-    public Optional<UserEntity> findOneUser(Integer userId) {
+    public Optional<UserDTO> findOneUser(Integer userId) {
         log.info("User was successfully found");
-        return Optional.ofNullable(userRepository.findOne(userId));
+        return Optional.ofNullable(userMapper.userToUserDto(userRepository.findOne(userId)));
     }
 
-    public List<CreditCardEntity> findAllCreditCard() {
+    public List<CreditCardDTO> findAllCreditCard() {
         log.info("All credit cards were successfully found");
-        return creditCardRepository.findAll();
+        return cardMapper.cardsToCardsDto(creditCardRepository.findAll());
     }
 
-    public List<OrderEntity> findAllOrders() {
-        log.info("All orders were successfully found");
-        return orderRepository.findAll();
+    public Optional<UserDTO> findUserByEmail(String email) {
+        log.info("All users by email were successfully found");
+        return Optional.ofNullable(userMapper.userToUserDto(userRepository.findByEmail(email)));
     }
 
-
-    public List<BankAccountEntity> findAllBankAccounts() {
-        log.info("All bank accounts were successfully found");
-        return bankAccountRepository.findAll();
-    }
-
-    public List<CreditCardEntity> findCardsByUserId(Integer userId) {
+    public List<CreditCardDTO> findCardsByUserId(Integer userId) {
         log.info("All cards by userId were successfully found");
-        return creditCardRepository.findByUserId(userId);
+        return cardMapper.cardsToCardsDto(creditCardRepository.findByUserId(userId));
     }
 
-    public List<CreditCardEntity> findCardsByAccountId(Integer accountId) {
+    public List<CreditCardDTO> findCardsByAccountId(Integer accountId) {
         log.info("All cards by accountId were successfully found");
-        return creditCardRepository.findByAccountId(accountId);
+        return cardMapper.cardsToCardsDto(creditCardRepository.findByAccountId(accountId));
     }
 
-    public List<BankAccountEntity> findAccountsByUserId(Integer userId) {
+    public List<BankAccountDTO> findAccountsByUserId(Integer userId) {
         log.info("All accounts by userId were successfully found");
-        return bankAccountRepository.findByUserId(userId);
+        return accountMapper.accountsToAccountsDto(bankAccountRepository.findByUserId(userId));
     }
 
-    public List<OrderEntity> findOrdersByAccountId(Integer accountId) {
+    public List<BankAccountDTO> findAllBankAccounts() {
+        log.info("All bank accounts were successfully found");
+        return accountMapper.accountsToAccountsDto(bankAccountRepository.findAll());
+    }
+
+    public List<OrderDTO> findAllOrders() {
+        log.info("All orders were successfully found");
+        return orderMapper.ordersToOrdersDto(orderRepository.findAll());
+    }
+
+    public List<OrderDTO> findOrdersByAccountId(Integer accountId) {
         log.info("All orders by AccountId were successfully found");
-        return orderRepository.findByAccountId(accountId);
+        return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
     }
 }

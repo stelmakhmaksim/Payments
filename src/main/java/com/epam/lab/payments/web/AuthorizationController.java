@@ -1,66 +1,79 @@
 package com.epam.lab.payments.web;
 
 import com.epam.lab.payments.UserValidator;
-import com.epam.lab.payments.domain.UserEntity;
+import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.AuthorizationService;
 import com.epam.lab.payments.services.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashMap;
+import java.security.Principal;
+
+import static com.epam.lab.payments.Constants.LOGIN;
+import static com.epam.lab.payments.Constants.REGISTRATION;
 
 @Controller
 @RequiredArgsConstructor
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
     private final SecurityService securityService;
-    private final UserValidator userValidator;
 
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
-        UserEntity user = new UserEntity();
+        UserDTO user = new UserDTO();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("registration");
+        modelAndView.setViewName(REGISTRATION);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid UserEntity user, BindingResult bindingResult) {
+    @RequestMapping(value = REGISTRATION, method = RequestMethod.POST)
+    public ModelAndView createNewUser(@Valid UserDTO user, BindingResult bindingResult) {
+        UserValidator userValidator = new UserValidator(authorizationService);
         ModelAndView modelAndView = new ModelAndView();
-        UserEntity userExists = authorizationService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
-        }
+
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("successMessage", "Some fields has errors");
+            modelAndView.setViewName(REGISTRATION);
         } else {
             authorizationService.save(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new UserEntity());
-            modelAndView.setViewName("registration");
-
+            modelAndView.addObject("user", new UserDTO());
+            modelAndView.setViewName(REGISTRATION);
         }
         return modelAndView;
     }
 
-    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
-    public ModelAndView login(){
+    @RequestMapping(value={"/", LOGIN}, method = RequestMethod.GET)
+    public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            modelAndView.setViewName("reports/accountDetails");
+        } else {
+            modelAndView.setViewName(LOGIN);
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public ModelAndView updateUser(UserDTO user, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Principal principal = request.getUserPrincipal();
+        if (user.getEmail().equals(principal.getName())) {
+            authorizationService.update(user);
+        }
+        modelAndView.setViewName("reports/accountDetails");
         return modelAndView;
     }
 
