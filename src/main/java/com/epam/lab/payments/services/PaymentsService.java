@@ -18,11 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PaymentsService {
     private final UserRepository userRepository;
-
     private final CreditCardRepository creditCardRepository;
-
     private final OrderRepository orderRepository;
-
     private final BankAccountRepository bankAccountRepository;
 
     public List<UserEntity> findAllUsers() {
@@ -31,6 +28,10 @@ public class PaymentsService {
 
     public Optional<UserEntity> findOneUser(Integer userId) {
         return Optional.ofNullable(userRepository.findOne(userId));
+    }
+
+    public Optional<UserEntity> findUserByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
     public List<CreditCardEntity> findAllCreditCard() {
