@@ -58,7 +58,7 @@ public class AuthorizationController {
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            modelAndView.setViewName("/account");
+            modelAndView.setViewName("/reports/admin");
         } else {
             modelAndView.setViewName(LOGIN);
         }
