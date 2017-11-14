@@ -8,7 +8,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BankAccountMapper {
+    BankAccountDTO accountToAccountDto(BankAccountEntity account);
+
     List<BankAccountDTO> accountsToAccountsDto(List<BankAccountEntity> accounts);
 
-    BankAccountDTO accountToAccountDto(BankAccountEntity account);
+    BankAccountEntity accountDtoToAccount(BankAccountDTO account);
+
+    List<BankAccountEntity> accountsDtoToAccounts(List<BankAccountDTO> accounts);
 }

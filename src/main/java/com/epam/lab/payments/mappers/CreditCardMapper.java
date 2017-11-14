@@ -8,7 +8,12 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CreditCardMapper {
+    CreditCardDTO cardToCardDto(CreditCardEntity card);
+
     List<CreditCardDTO> cardsToCardsDto(List<CreditCardEntity> cards);
 
-    CreditCardDTO cardToCardDto(CreditCardEntity card);
+    CreditCardEntity cardDtoToCard(CreditCardDTO card);
+
+    List<CreditCardEntity> cardsDtoToCards(List<CreditCardDTO> cards);
+
 }
