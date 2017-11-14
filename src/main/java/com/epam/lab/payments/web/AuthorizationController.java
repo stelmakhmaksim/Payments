@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 import static com.epam.lab.payments.Constants.LOGIN;
 import static com.epam.lab.payments.Constants.REGISTRATION;
@@ -51,9 +53,27 @@ public class AuthorizationController {
     }
 
     @RequestMapping(value={"/", LOGIN}, method = RequestMethod.GET)
-    public ModelAndView login(){
+    public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(LOGIN);
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            modelAndView.setViewName("/account");
+        } else {
+            modelAndView.setViewName(LOGIN);
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public ModelAndView updateUser(UserEntity user, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Principal principal = request.getUserPrincipal();
+        if (user.getEmail() == principal.getName()) {
+            authorizationService.save(user);
+        }
+        modelAndView.setViewName("/account");
         return modelAndView;
     }
 
