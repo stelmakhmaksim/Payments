@@ -46,22 +46,31 @@ public class PaymentsService {
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findOne(userId)));
     }
 
-
     public List<CreditCardDTO> findAllCreditCard() {
         return cardMapper.cardsToCardsDto(creditCardRepository.findAll());
+    }
+
+    public List<CreditCardDTO> findCardsByUserId(Integer userId) {
+        return cardMapper.cardsToCardsDto(creditCardRepository.findByUserId(userId));
+    }
+
+    public List<CreditCardDTO> findCardsByAccountId(Integer accountId) {
+        return cardMapper.cardsToCardsDto(creditCardRepository.findByAccountId(accountId));
+    }
+
+    public List<BankAccountDTO> findAccountsByUserId(Integer userId) {
+        return accountMapper.accountsToAccountsDto(bankAccountRepository.findByUserId(userId));
+    }
+
+    public List<BankAccountDTO> findAllBankAccounts() {
+        return accountMapper.accountsToAccountsDto(bankAccountRepository.findAll());
     }
 
     public List<OrderDTO> findAllOrders() {
         return orderMapper.ordersToOrdersDto(orderRepository.findAll());
     }
 
-
-    public List<BankAccountDTO> findAllBankAccounts() {
-        return accountMapper.accountsToAccountsDto(bankAccountRepository.findAll());
-    }
-
-    public Optional<BankAccountDTO> findOneBankAccount(Integer accountId) {
-        return Optional.ofNullable(accountMapper.accountToAccountDto(bankAccountRepository
-                .findOne(accountId)));
+    public List<OrderDTO> findOrdersByAccountId(Integer accountId) {
+        return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
     }
 }
