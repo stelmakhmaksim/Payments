@@ -29,9 +29,9 @@ public class UserValidator implements Validator {
         if (userDTO.getEmail().length() < 6 || userDTO.getEmail().length() > 32) {
             errors.reject(EMAIL, "Size.userForm.email");
         }
-        if (authorizationService.findUserByEmail(userDTO.getEmail()) != null) {
-            errors.reject(EMAIL, "Duplicate.userForm.email");
-        }
+
+        authorizationService.findUserByEmail(userDTO.getEmail())
+                .ifPresent(u -> errors.reject(EMAIL, "Duplicate.userForm.email"));
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, "NotEmpty");
         if (userDTO.getPassword().length() < 8 || userDTO.getPassword().length() > 32) {
