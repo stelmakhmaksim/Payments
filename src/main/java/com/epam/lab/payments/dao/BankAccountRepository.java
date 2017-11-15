@@ -25,5 +25,12 @@ public interface BankAccountRepository extends JpaRepository<BankAccountEntity, 
             "\"ba\".\"balance\",\n" +
             "\"ba\".\"is_blocked\"",
             nativeQuery = true)
+    /*@Query("select ba.id, ba.ownerName, ba.balance, ba.isBlocked from CreditCardEntity cc " +
+            "inner join cc.account ba inner join cc.user u where u.id = :id")*/
+    /*@Query("select ba.id, ba.ownerName, ba.balance, ba.isBlocked from CreditCardEntity cc " +
+            "inner join cc.account as ba where cc.user = :id")*/
+    /*@Query("select ba.id,ba.ownerName, ba.balance, ba.isBlocked from BankAccountEntity ba," +
+           "CreditCardEntity c,  UserEntity u where u.id =:id and ba.id = " +
+           "c.account and c.user = u.id")*/
     List<BankAccountEntity> findByUserId(@Param("id") Integer userId);
 }
