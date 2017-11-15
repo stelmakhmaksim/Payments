@@ -53,7 +53,7 @@ public class AuthorizationController {
         return modelAndView;
     }
 
-    @RequestMapping(value={"/", LOGIN, REGISTRATION}, method = RequestMethod.GET)
+    @RequestMapping(value={"/", LOGIN}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
 
