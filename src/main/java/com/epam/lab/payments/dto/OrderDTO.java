@@ -16,4 +16,6 @@ public class OrderDTO {
     private int value;
 
     private String description;
+
+    private BankAccountDTO account;
 }
