@@ -21,7 +21,7 @@ import static com.epam.lab.payments.Constants.ROLE_USER;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
-    
+
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userEmail) {
@@ -38,5 +38,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         System.out.println(grantedAuthorities);
         return new User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
+    }
+
+    @Transactional(readOnly = true)
+    public UserEntity loadUserEntityByUsername(String userEmail) {
+        return userRepository.findByEmail(userEmail);
     }
 }

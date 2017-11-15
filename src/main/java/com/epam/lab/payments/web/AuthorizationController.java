@@ -57,9 +57,9 @@ public class AuthorizationController {
     public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
 
-        boolean isLogged = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
-        if (isLogged) {
-            modelAndView.setViewName("reports/accountDetails");
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            modelAndView.setViewName("reports/userDetails");
         } else {
             modelAndView.setViewName(LOGIN);
         }
@@ -74,7 +74,7 @@ public class AuthorizationController {
         if (user.getEmail().equals(principal.getName())) {
             authorizationService.update(user);
         }
-        modelAndView.setViewName("reports/accountDetails");
+        modelAndView.setViewName("reports/userDetails");
         return modelAndView;
     }
 
