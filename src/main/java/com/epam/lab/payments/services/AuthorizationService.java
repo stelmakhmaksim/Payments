@@ -2,22 +2,41 @@ package com.epam.lab.payments.services;
 
 import com.epam.lab.payments.dao.UserRepository;
 import com.epam.lab.payments.domain.UserEntity;
+import com.epam.lab.payments.dto.UserDTO;
+import com.epam.lab.payments.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthorizationService {
     private final UserRepository userRepository;
+
+    private final UserMapper userMapper;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void save(UserEntity userEntity) {
-        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-        userRepository.save(userEntity);
+    public void save(UserDTO userDTO) {
+        userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+        userRepository.save(userMapper.userDtoToUser(userDTO));
     }
 
-    public UserEntity findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<UserDTO> findUserByEmail(String email) {
+        return Optional.ofNullable(userMapper.userToUserDto(userRepository.findByEmail(email)));
     }
+
+    public void update(UserDTO user) {
+        UserEntity oldUser = userRepository.findByEmail(user.getEmail());
+        if (!user.getPhone().isEmpty()) {
+            oldUser.setPhone(user.getPhone());
+        }
+        if (!user.getPassword().isEmpty()) {
+            oldUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+        userRepository.save(oldUser);
+    }
+
 }

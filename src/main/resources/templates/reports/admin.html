@@ -16,6 +16,30 @@
 </head>
 
 <body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Платежи</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/account">Добрый день, ${username}</a></li>
+                <li>
+                    <form class="navbar-form navbar-right" role="form" action="/logout">
+                        <button type="submit" class="btn btn-success">Выйти</button>
+                    </form>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
 <div class="container" style="padding:50px 50px;">
     <div class="col-sm-10">
         <h1>Users</h1>
@@ -49,7 +73,6 @@
     jQuery(function($) {
         var grid_selector = "#grid-table-users";
         var pager_selector = "#grid-pager-users";
-
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
@@ -177,7 +200,7 @@
 			altRows: true,
 			multiselect: true,
 			multiboxonly: true,
-			caption: "This user is the owner of the following cards:",
+			caption: "Full list of cards:",
 			loadComplete : function() {
 					var table = this;
 					setTimeout(function(){
@@ -192,69 +215,80 @@
     // Accounts
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	jQuery(function($) {
-		var grid_selector = "#grid-table-accounts";
-		var pager_selector = "#grid-pager-accounts";
+    jQuery(function($) {
+        var grid_selector = "#grid-table-accounts";
+        var pager_selector = "#grid-pager-accounts";
 
-		jQuery(grid_selector).jqGrid({
-			url:'/api/accounts',
-			datatype: "json",
-			colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
-			colModel:[
-                {
-                    name:'id',
-                    index:'id',
-                    width:150,
-                    formatter:formatAccountNumber
-                },
-                {
-                    name:'ownerName',
-                    index:'ownerName',
-                    width:200
-                },
-                {
-                    name:'balance',
-                    index:'balance',
-                    align:'right',
-                    width:150
-                },
-                {
-                    name:'isBlocked',
-                    index:'isBlocked',
-                    template:'booleanCheckbox',
-                    align: "center",
-                    width:100
-                },
-                {
-                    name:'id',
-                    index:'id',
-                    width:70,
-                    formatter:formatCardsLink,
-                    align:'center'
-                },
-                {
-                    name:'id',
-                    index:'id',
-                    width:70,
-                    formatter:formatOrdersLink,
-                    align:'center'
-                }
-			],
-			loadonce: true,
-			rowNum: 5,
-			rowList:[5, 10, 20, 30],
-			pager : pager_selector,
-			altRows: true,
-			multiselect: true,
-			multiboxonly: true,
-			caption: "This user is the owner of the following accounts:",
-			loadComplete : function() {
-					var table = this;
-					setTimeout(function(){
-								updatePagerIcons(table);
-					}, 0);
-			}
-		});
-	});
+        $("#grid-table-accounts").jqGrid({
+            url:'/api/accounts',
+            editurl:'api/account',
+            inlineEditing: {
+                mtype: "PUT"
+            },
+            datatype: "json",
+            colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
+            colModel:[
+                   {
+                       name:'id',
+                       width:150,
+                       formatter:formatAccountNumber
+                   },
+                   {
+                       name:'ownerName',
+                       editable:true,
+                       width:200
+                   },
+                   {
+                       name:'balance',
+                       align:'right',
+                       width:150
+                   },
+                   {
+                       name:'isBlocked',
+                       editable: true,
+                       template:'booleanCheckbox',
+                       formatoptions: {disabled : true},
+                       align: "center",
+                       width:100
+                   },
+                   {
+                       name:'id',
+                       width:70,
+                       formatter:formatCardsLink,
+                       align:'center'
+                   },
+                   {
+                       name:'id',
+                       width:70,
+                       formatter:formatOrdersLink,
+                       align:'center'
+                   }
+            ],
+            loadonce : true,
+            viewrecords: true,
+            onSelectRow: editRow, // the javascript function to call on row click. will ues to to put the row in edit mode
+            rowNum: 5,
+            rowList:[5, 10, 20, 30],
+            pager: pager_selector,
+            caption: "Full list of accounts:",
+            loadComplete : function() {
+                var table = this;
+                setTimeout(function(){
+                            updatePagerIcons(table);
+                }, 0);
+            }
+        });
+
+        var lastSelection;
+        function editRow(id) {
+            if (id && id !== lastSelection) {
+                var grid = $("#grid-table-accounts");
+                grid.jqGrid('restoreRow',lastSelection);
+                grid.jqGrid('editRow',id, {keys: true} );
+                lastSelection = id;
+            }
+        }
+    });
 </script>
+
 </html>
