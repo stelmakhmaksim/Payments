@@ -38,15 +38,8 @@ class PaymentsController {
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.PUT)
-    public ModelAndView updateAccount(BankAccountDTO accountDTO, String isBlocked, HttpServletRequest request) {
-
-        if (isBlocked.equalsIgnoreCase("true")) {
-            accountDTO.setBlocked(true);
-        } else {
-            accountDTO.setBlocked(false);
-        }
+    public ModelAndView updateAccount(BankAccountDTO accountDTO, HttpServletRequest request) {
         paymentsService.update(accountDTO);
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("reports/accountDetails");
         return modelAndView;
