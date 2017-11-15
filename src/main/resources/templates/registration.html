@@ -10,7 +10,7 @@
 </head>
 <body>
 <form th:action="@{/}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+    <button class="btn btn-md btn-warning btn-block" type="Submit" th:text="#{toLogin}"></button>
 </form>
 
 <div class="container">
@@ -19,7 +19,7 @@
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
-                <h2>Registration Form</h2>
+                <h2 th:text="#{registrationForm}"></h2>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
@@ -64,7 +64,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                        <button type="submit" class="btn btn-primary btn-block" th:text="#{registerUser}"></button>
                     </div>
                 </div>
 

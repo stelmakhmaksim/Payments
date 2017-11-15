@@ -1,16 +1,23 @@
 package com.epam.lab.payments.web.html;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 public class UserCardsController {
 
     @RequestMapping("/userCards/{id}")
-    public String cards(@PathVariable("id") String id, Model model) {
-        model.addAttribute("userId", id);
-        return "reports/userCards";
+    public ModelAndView cards(@PathVariable("id") String id, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        Principal principal = request.getUserPrincipal();
+        modelAndView.addObject("user", principal.getName());
+        modelAndView.addObject("userId", id);
+        modelAndView.setViewName("reports/userCards");
+        return modelAndView;
     }
 }

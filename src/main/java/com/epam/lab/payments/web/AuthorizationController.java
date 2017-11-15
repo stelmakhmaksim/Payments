@@ -56,10 +56,10 @@ public class AuthorizationController {
         return modelAndView;
     }
 
-    @RequestMapping(value={"/", LOGIN, REGISTRATION}, method = RequestMethod.GET)
+    @RequestMapping(value={"/", LOGIN}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
-
+        // TODO: in functional style
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
             modelAndView.setViewName("reports/userDetails");
