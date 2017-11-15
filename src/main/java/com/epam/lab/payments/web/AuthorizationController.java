@@ -23,7 +23,6 @@ import static com.epam.lab.payments.Constants.REGISTRATION;
 @RequiredArgsConstructor
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
-    private final SecurityService securityService;
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
     public ModelAndView registration(){
