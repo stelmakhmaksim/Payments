@@ -2,19 +2,26 @@ package com.epam.lab.payments.web.html;
 
 import com.epam.lab.payments.web.html.cosmetic.CardNumberAdjuster;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 public class AccountDetailsController {
 
     @RequestMapping("/account/{id}")
-    public String account(@PathVariable("id") String id, Model model) {
+    public ModelAndView userDetails(@PathVariable("id") String id, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        Principal principal = request.getUserPrincipal();
 
-        model.addAttribute("accountId", id);
-        model.addAttribute("accountNumber", CardNumberAdjuster.valueOf16Digits(id));
+        modelAndView.addObject("user", principal.getName());
+        modelAndView.addObject("accountId", id);
+        modelAndView.addObject("accountNumber", CardNumberAdjuster.valueOf16Digits(id));
 
-        return "reports/accountDetails";
+        modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
     }
 }
