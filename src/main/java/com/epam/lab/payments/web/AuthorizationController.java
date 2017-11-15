@@ -3,9 +3,7 @@ package com.epam.lab.payments.web;
 import com.epam.lab.payments.UserValidator;
 import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.AuthorizationService;
-import com.epam.lab.payments.services.SecurityService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,6 @@ import static com.epam.lab.payments.Constants.REGISTRATION;
 @RequiredArgsConstructor
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
-    private final SecurityService securityService;
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
     public ModelAndView registration(){
@@ -57,9 +54,9 @@ public class AuthorizationController {
     public ModelAndView login(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
 
-        boolean isLogged = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
-        if (isLogged) {
-            modelAndView.setViewName("reports/accountDetails");
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            modelAndView.setViewName("reports/userDetails");
         } else {
             modelAndView.setViewName(LOGIN);
         }
@@ -69,12 +66,11 @@ public class AuthorizationController {
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public ModelAndView updateUser(UserDTO user, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-
         Principal principal = request.getUserPrincipal();
         if (user.getEmail().equals(principal.getName())) {
             authorizationService.update(user);
         }
-        modelAndView.setViewName("reports/accountDetails");
+        modelAndView.setViewName("reports/userDetails");
         return modelAndView;
     }
 
