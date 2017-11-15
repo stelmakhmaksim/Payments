@@ -13,4 +13,8 @@ public class CreditCardDTO {
     private Date expiration;
 
     private int securityCode;
+
+    private BankAccountDTO account;
+
+    private UserDTO user;
 }

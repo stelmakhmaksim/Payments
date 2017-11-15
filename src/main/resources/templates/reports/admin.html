@@ -76,7 +76,7 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Password', 'Phone', 'Is Admin', 'Cards', 'Accounts'],
+            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', 'Cards', 'Accounts'],
             colModel:[
                 {
                     name:'id',
@@ -95,11 +95,8 @@
                     name:'email',
                     index:'email',
                     width:200
-                },                {
-                    name:'password',
-                    index:'password',
-                    width:100
-                },                {
+                },
+                {
                     name:'phone',
                     index:'phone',
                     width:150
@@ -244,7 +241,7 @@
                        width:150
                    },
                    {
-                       name:'isBlocked',
+                       name:'blocked',
                        editable: true,
                        template:'booleanCheckbox',
                        formatoptions: {disabled : true},
