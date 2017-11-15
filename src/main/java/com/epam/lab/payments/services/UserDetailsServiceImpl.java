@@ -38,4 +38,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         log.info("Load user by user email " + userEmail + ". Access level: " + grantedAuthorities);
         return new User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
     }
+
+    @Transactional(readOnly = true)
+    public UserEntity loadUserEntityByUsername(String userEmail) {
+        return userRepository.findByEmail(userEmail);
+    }
 }

@@ -33,6 +33,7 @@ public class UserValidator implements Validator {
             log.info("User email " + userDTO.getEmail() + " has incorrect length"
                     + userDTO.getEmail().length());
         }
+
         if (authorizationService.findUserByEmail(userDTO.getEmail()) != null) {
             errors.reject(EMAIL, "Duplicate.userForm.email");
             log.info("User email " + userDTO.getEmail() + " has duplicate");

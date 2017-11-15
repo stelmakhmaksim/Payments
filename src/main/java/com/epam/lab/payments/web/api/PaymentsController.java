@@ -10,8 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,6 @@ class PaymentsController {
     @GetMapping("/users")
     public List<UserDTO> getAllUsers() {
         return paymentsService.findAllUsers();
-
     }
 
     @GetMapping("/user/{id}")
@@ -33,6 +35,21 @@ class PaymentsController {
         Optional<UserDTO> userEntity = paymentsService.findOneUser(userId);
         return userEntity.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @RequestMapping(value = "/account", method = RequestMethod.PUT)
+    public ModelAndView updateAccount(BankAccountDTO accountDTO, String isBlocked, HttpServletRequest request) {
+
+        if (isBlocked.equalsIgnoreCase("true")) {
+            accountDTO.setBlocked(true);
+        } else {
+            accountDTO.setBlocked(false);
+        }
+        paymentsService.update(accountDTO);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
     }
 
     @GetMapping("/user/{id}/cards")
@@ -56,6 +73,14 @@ class PaymentsController {
     @GetMapping("/cards")
     public ResponseEntity<List<CreditCardDTO>> getAllCards() {
         return ResponseEntity.ok(paymentsService.findAllCreditCard());
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    public ModelAndView updateOrder(OrderDTO orderDTO, HttpServletRequest request) {
+        paymentsService.create(orderDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
     }
 
     @GetMapping("/orders")

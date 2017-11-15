@@ -4,6 +4,7 @@ import com.epam.lab.payments.dao.BankAccountRepository;
 import com.epam.lab.payments.dao.CreditCardRepository;
 import com.epam.lab.payments.dao.OrderRepository;
 import com.epam.lab.payments.dao.UserRepository;
+import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.dto.BankAccountDTO;
 import com.epam.lab.payments.dto.CreditCardDTO;
 import com.epam.lab.payments.dto.OrderDTO;
@@ -30,15 +31,10 @@ public class PaymentsService {
     private final OrderRepository orderRepository;
 
     private final BankAccountRepository bankAccountRepository;
-
     private final UserMapper userMapper;
-
     private final CreditCardMapper cardMapper;
-
     private final BankAccountMapper accountMapper;
-
     private final OrderMapper orderMapper;
-
 
     public List<UserDTO> findAllUsers() {
         log.info("All users were successfully found");
@@ -88,5 +84,16 @@ public class PaymentsService {
     public List<OrderDTO> findOrdersByAccountId(Integer accountId) {
         log.info("All orders by AccountId " + accountId + " were successfully found");
         return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
+    }
+
+    public void update(BankAccountDTO accountDTO) {
+        BankAccountEntity oldAccount = bankAccountRepository.findOne(accountDTO.getId());
+        oldAccount.setOwnerName(accountDTO.getOwnerName());
+        oldAccount.setBlocked(accountDTO.isBlocked());
+        bankAccountRepository.save(oldAccount);
+    }
+
+    public void create(OrderDTO orderDTO) {
+        orderRepository.save(orderMapper.orderDtoToOrder(orderDTO));
     }
 }
