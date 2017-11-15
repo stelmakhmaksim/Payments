@@ -26,15 +26,10 @@ public class PaymentsService {
     private final CreditCardRepository creditCardRepository;
     private final OrderRepository orderRepository;
     private final BankAccountRepository bankAccountRepository;
-
     private final UserMapper userMapper;
-
     private final CreditCardMapper cardMapper;
-
     private final BankAccountMapper accountMapper;
-
     private final OrderMapper orderMapper;
-
 
     public List<UserDTO> findAllUsers() {
         return userMapper.usersToUsersDto(userRepository.findAll());
