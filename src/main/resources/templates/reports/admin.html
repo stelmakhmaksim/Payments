@@ -29,7 +29,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/account" th:text="'Добрый день, ' + ${user}"></a></li>
+                <li><a href="/account" th:text="#{goodDay} + ', ' + ${user}"></a></li>
                 <li>
                     <form class="navbar-form navbar-right" role="form" action="/logout">
                         <button type="submit" class="btn btn-success" th:text="#{logout}"></button>
@@ -42,21 +42,21 @@
 
 <div class="container" style="padding:50px 50px;">
     <div class="col-sm-10">
-        <h1>Users</h1>
+        <h1 th:text="#{users}"></h1>
         <table id="grid-table-users"></table>
         <div id="grid-pager-users"></div>
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
     <div class="col-sm-10">
-        <h1>Cards</h1>
+        <h1 th:text="#{cards}"></h1>
         <table id="grid-table-cards"></table>
         <div id="grid-pager-cards"></div>
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
     <div class="col-sm-10">
-        <h1>Accounts</h1>
+        <h1 th:text="#{accounts}"></h1>
         <table id="grid-table-accounts"></table>
         <div id="grid-pager-accounts"></div>
     </div>

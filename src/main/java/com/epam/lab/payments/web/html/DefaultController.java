@@ -1,19 +1,16 @@
 package com.epam.lab.payments.web.html;
 
 import com.epam.lab.payments.domain.UserEntity;
-import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.security.Principal;
 
 import static com.epam.lab.payments.Constants.ROLE_ADMIN;
@@ -48,6 +45,9 @@ public class DefaultController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (isAdmin) {
+            Principal principal = request.getUserPrincipal();
+            modelAndView.addObject("user", principal.getName());
+
             modelAndView.setViewName("reports/admin");
         } else if (isUser){
             Principal principal = request.getUserPrincipal();
