@@ -68,7 +68,6 @@ public class AuthorizationController {
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public ModelAndView updateUser(UserDTO user, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-
         Principal principal = request.getUserPrincipal();
         if (user.getEmail().equals(principal.getName())) {
             authorizationService.update(user);
