@@ -73,6 +73,7 @@ public class PaymentsService {
 
     public void update(BankAccountDTO accountDTO) {
         BankAccountEntity oldAccount = bankAccountRepository.findOne(accountDTO.getId());
+        oldAccount.setOwnerName(accountDTO.getOwnerName());
         oldAccount.setBlocked(accountDTO.isBlocked());
         bankAccountRepository.save(oldAccount);
     }
