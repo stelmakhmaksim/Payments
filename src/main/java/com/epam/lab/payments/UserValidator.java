@@ -36,7 +36,8 @@ public class UserValidator implements Validator {
 
         if (authorizationService.findUserByEmail(userDTO.getEmail()) != null) {
             errors.reject(EMAIL, "Duplicate.userForm.email");
-            log.info("User email " + userDTO.getEmail() + " has duplicate");
+            log.info("User email " + userDTO.getEmail() + " has duplicate by "
+                    + authorizationService.findUserByEmail(userDTO.getEmail()));
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, "NotEmpty");
