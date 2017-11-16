@@ -85,7 +85,7 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', [[#{cards}]], 'Accounts', ''],
+            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', 'Cards', 'Accounts', ''],
             colModel:[
                 {
                     name:'id',
@@ -134,7 +134,7 @@
                 {
                     name:'id',
                     index:'id',
-                    width:150,
+                    width:70,
                     formatter:formatUserCardsLink,
                     align:'center'
                 },
@@ -151,7 +151,7 @@
                     editable:true,
                     editoptions:{size:10},
                     width:11,
-                    formatter: function formatEmpty() {return '';}
+                    formatter: function() {return '';}
                 }
             ],
             loadonce: true,
@@ -167,6 +167,13 @@
                             updatePagerIcons(table);
                     }, 0);
             },
+            editurl:"registration",
+            onclickSubmit : function(params, posdata) {
+                alert(posdata);
+                return {
+                    id: "-1",
+                };
+            }
             editurl:"registration"
         });
         $("#adddata").click(function(){
