@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="http://klever-hotel.ru/css/card.css" />
+
+    <style>
+        .ui-jqdialog { background-color: #5CB85C;}
+     </style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
     <script src="../js/formatters.js"></script>
@@ -39,12 +44,16 @@
         </div><!--/.nav-collapse -->
     </div>
 </div>
-
 <div class="container" style="padding:50px 50px;">
     <div class="col-sm-10">
         <h1 th:text="#{users}"></h1>
         <table id="grid-table-users"></table>
         <div id="grid-pager-users"></div>
+
+        <table id="editgrid" ></table>
+        <div id="pagered" ></div>
+        <input type="BUTTON" id="adddata" value="Add User" />
+        <input type="BUTTON" id="deldata" value="Delete User" />
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
@@ -65,7 +74,6 @@
 
 <script type="text/javascript">
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Users
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,36 +84,51 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', 'Cards', 'Accounts'],
+            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', 'Cards', 'Accounts', ''],
             colModel:[
                 {
                     name:'id',
                     index:'id',
-                    width:30
+                    width:30,
+                    sortable:true,
+                    editable:true,
+                    editoptions:{size:1}
                 },
                 {
                     name:'firstName',
                     index:'firstName',
-                    width:100
-                },                {
+                    width:100,
+                    editable:true,
+                    editoptions:{size:10}
+                },
+                {
                     name:'lastName',
                     index:'lastName',
-                    width:100
-                },                {
+                    width:100,
+                    editable:true,
+                    editoptions:{size:10}
+                },
+                {
                     name:'email',
                     index:'email',
-                    width:200
+                    width:200,
+                    editable:true,
+                    editoptions:{size:10}
                 },
                 {
                     name:'phone',
                     index:'phone',
-                    width:150
+                    width:150,
+                    editable:true,
+                    editoptions:{size:10}
                 },
                 {
                     name:'admin',
                     index:'admin',
                     template: "booleanCheckbox",
-                    width:70
+                    width:70,
+                    editable:true,
+                    editoptions:{size:1}
                 },
                 {
                     name:'id',
@@ -121,6 +144,13 @@
                     formatter:formatUserAccountsLink,
                     sortable:false,
                     align:'center'
+                },
+                {
+                    name:'password',
+                    editable:true,
+                    editoptions:{size:10},
+                    width:11,
+                    formatter: function formatEmpty() {return '';}
                 }
             ],
             loadonce: true,
@@ -128,7 +158,7 @@
             rowList:[5, 10, 20, 30],
             pager : pager_selector,
             altRows: true,
-            multiselect: true,
+            multiselect: false,
             multiboxonly: true,
             caption: "Full list of users:",
             loadComplete : function() {
@@ -136,7 +166,16 @@
                     setTimeout(function(){
                             updatePagerIcons(table);
                     }, 0);
-            }
+            },
+            editurl:"api/user"
+        });
+        $("#adddata").click(function(){
+            jQuery(grid_selector).jqGrid('editGridRow',"new",{reloadAfterSubmit:false});
+        });
+        $("#deldata").click(function(){
+            var gr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
+            else alert("Please Select Row to delete!");
         });
     });
 
@@ -195,7 +234,7 @@
 			rowList:[5, 10, 20, 30],
 			pager : pager_selector,
 			altRows: true,
-			multiselect: true,
+			multiselect: false,
 			multiboxonly: true,
 			caption: "Full list of cards:",
 			loadComplete : function() {

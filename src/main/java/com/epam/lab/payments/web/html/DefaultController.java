@@ -55,6 +55,8 @@ public class DefaultController {
 
             UserEntity userEntity = userDetailsService.loadUserEntityByUsername(principal.getName());
             modelAndView.addObject("id", userEntity.getId());
+            modelAndView.addObject("firstName", userEntity.getFirstName());
+            modelAndView.addObject("lastName", userEntity.getLastName());
 
             modelAndView.setViewName("reports/userDetails");
         } else {

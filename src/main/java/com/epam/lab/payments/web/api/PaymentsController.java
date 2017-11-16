@@ -69,10 +69,18 @@ class PaymentsController {
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public ModelAndView updateOrder(OrderDTO orderDTO, HttpServletRequest request) {
-        paymentsService.create(orderDTO);
+    public ModelAndView createOrder(OrderDTO orderDTO, HttpServletRequest request) {
+        paymentsService.createOrder(orderDTO);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ModelAndView createUser(UserDTO userDTO, HttpServletRequest request) {
+        paymentsService.createUser(userDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/reports/admin");
         return modelAndView;
     }
 

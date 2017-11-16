@@ -93,7 +93,11 @@ public class PaymentsService {
         bankAccountRepository.save(oldAccount);
     }
 
-    public void create(OrderDTO orderDTO) {
+    public void createOrder(OrderDTO orderDTO) {
         orderRepository.save(orderMapper.orderDtoToOrder(orderDTO));
+    }
+
+    public void createUser(UserDTO userDTO) {
+        userRepository.save(userMapper.userDtoToUser(userDTO));
     }
 }

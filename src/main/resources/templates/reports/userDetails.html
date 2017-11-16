@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="http://klever-hotel.ru/css/card.css" />
+
+    <style>
+        .ui-jqdialog { background-color: #5CB85C;}
+     </style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
     <script src="../js/formatters.js"></script>
@@ -43,7 +48,7 @@
 
 <div class="container" style="padding:50px 50px;">
     <div align="center">
-        <h1 th:text="#{user} + ' № [' + ${id} + ']'"></h1>
+        <h1 th:text="#{user} + ': ' + ${firstName} + ' ' + ${lastName}"></h1>
     </div>
     <div class="col-sm-10">
         <h2 th:text="#{cards}"></h2>
@@ -63,6 +68,10 @@
         <h2 th:text="#{orders}"></h2>
         <table id="grid-table-orders"></table>
         <div id="grid-pager-orders"></div>
+
+        <table id="editgrid" ></table>
+        <div id="pagered" ></div>
+        <input type="BUTTON" id="bedata" value="New Order" />
     </div>
 </div>
 </body>
@@ -229,7 +238,9 @@
                 {
                     name:'id',
                     index:'id',
-                    width:30
+                    width:30,
+                    editable:true,
+                    editoptions:{size:1}
                 },
                 {
                     name:'date',
@@ -247,13 +258,17 @@
                     name:'value',
                     index:'value',
                     align:'right',
-                    width:150
+                    width:150,
+                    editable:true,
+                    editoptions:{size:10}
                 },
                 {
                     name:'description',
                     index:'description',
                     align:'center',
-                    width:400
+                    width:400,
+                    editable:true,
+                    editoptions:{size:30}
                 }
             ],
             beforeRequest: function() {
@@ -273,7 +288,16 @@
                     setTimeout(function(){
                                 updatePagerIcons(table);
                     }, 0);
+            },
+            editurl:"api/order",
+            onclickSubmit : function(params, posdata) {
+                return {
+                    id: "-1",
+                };
             }
+        });
+        $("#bedata").click(function(){
+            jQuery(grid_selector).jqGrid('editGridRow',"new",{left:0,top:0,reloadAfterSubmit:false});
         });
     });
 </script>
