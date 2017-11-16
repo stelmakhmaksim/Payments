@@ -93,7 +93,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:['Card Number', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Orders'],
+            colNames:[[[#{сardNumber}]], [[[#{сardholderName}]] , [[#{balance}]], [[#{expiresAt}]]', [[#{orders}]],
             colModel:[
                 {
                     name:'id',
@@ -113,10 +113,6 @@
                     name:'expiration',
                     width:100,
                     align:'center'
-                },
-                {
-                    name:'securityCode',
-                    width:110
                 },
                 {
                     jsonmap:'account.id',
@@ -161,7 +157,7 @@
 
         $("#grid-table-accounts").jqGrid({
             datatype: "json",
-            colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
+            colNames:[[[#{accountNumber}]], [[#ownerName]], [[#{balance}]], [[#cards]], [[#{cards}]], [[#{orders}]]],
             colModel:[
                    {
                        name:'id',
@@ -188,7 +184,7 @@
                    },
                    {
                        name:'id',
-                       width:70,
+                       width:150,
                        formatter:formatCardsLink,
                        align:'center'
                    },
