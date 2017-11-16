@@ -10,8 +10,4 @@ public class Constants {
     public final static String LOGIN = "login";
 
     public final static String PASSWORD = "password";
-
-    public final static String ROLE_ADMIN = "admin";
-
-    public final static String ROLE_USER = "user";
 }
