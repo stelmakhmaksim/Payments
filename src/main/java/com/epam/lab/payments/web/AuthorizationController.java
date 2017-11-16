@@ -23,6 +23,7 @@ import static com.epam.lab.payments.Constants.REGISTRATION;
 @Log4j
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
+    private final UserValidator userValidator;
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
     public ModelAndView registration() {
@@ -35,7 +36,6 @@ public class AuthorizationController {
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid UserDTO user, BindingResult bindingResult) {
-        UserValidator userValidator = new UserValidator(authorizationService);
         ModelAndView modelAndView = new ModelAndView();
 
         userValidator.validate(user, bindingResult);
@@ -44,7 +44,7 @@ public class AuthorizationController {
             modelAndView.addObject("successMessage",
                     "Some fields have errors");
             modelAndView.setViewName(REGISTRATION);
-            log.info("Some fields when registering user " + user + "filled incorrectly");
+            log.info("Some errors when registering user " + bindingResult.getAllErrors());
         } else {
             authorizationService.save(user);
             modelAndView.addObject("successMessage",
