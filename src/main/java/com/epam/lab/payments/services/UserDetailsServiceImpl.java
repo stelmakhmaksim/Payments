@@ -2,6 +2,7 @@ package com.epam.lab.payments.services;
 
 import com.epam.lab.payments.dao.UserRepository;
 import com.epam.lab.payments.domain.UserEntity;
+import com.epam.lab.payments.web.Roles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.epam.lab.payments.Constants.ROLE_ADMIN;
-import static com.epam.lab.payments.Constants.ROLE_USER;
 
 @Service(value = "userDetailService")
 @RequiredArgsConstructor
@@ -31,9 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         if (userEntity.isAdmin()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_ADMIN));
+            grantedAuthorities.add(new SimpleGrantedAuthority(Roles.ADMIN.toString()));
         } else {
-            grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_USER));
+            grantedAuthorities.add(new SimpleGrantedAuthority(Roles.USER.toString()));
         }
         log.info("Load user by user email " + userEmail + ". Access level: " + grantedAuthorities);
         return new User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);

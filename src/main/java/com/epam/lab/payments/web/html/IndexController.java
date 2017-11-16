@@ -1,5 +1,6 @@
 package com.epam.lab.payments.web.html;
 
+import com.epam.lab.payments.web.Roles;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,8 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-
-import static com.epam.lab.payments.Constants.ROLE_ADMIN;
 
 @Controller
 public class IndexController {
@@ -23,7 +22,7 @@ public class IndexController {
                 .getContext()
                 .getAuthentication()
                 .getAuthorities()
-                .contains(new SimpleGrantedAuthority(ROLE_ADMIN));
+                .contains(new SimpleGrantedAuthority(Roles.ADMIN.toString()));
 
         if (isAdmin) {
             modelAndView.addObject("user", principal.getName());

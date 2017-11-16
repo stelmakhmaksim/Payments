@@ -1,5 +1,6 @@
 package com.epam.lab.payments;
 
+import com.epam.lab.payments.web.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import static com.epam.lab.payments.Constants.ROLE_ADMIN;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/admin").hasAuthority(ROLE_ADMIN).anyRequest()
+                .antMatchers("/admin").hasAuthority(Roles.ADMIN.toString()).anyRequest()
                 .authenticated()
                 .and()
                 .csrf().disable().formLogin()

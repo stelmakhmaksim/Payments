@@ -2,6 +2,7 @@ package com.epam.lab.payments.web.html;
 
 import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.services.UserDetailsServiceImpl;
+import com.epam.lab.payments.web.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-
-import static com.epam.lab.payments.Constants.ROLE_ADMIN;
-import static com.epam.lab.payments.Constants.ROLE_USER;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -34,13 +31,13 @@ public class DefaultController {
                 .getContext()
                 .getAuthentication()
                 .getAuthorities()
-                .contains(new SimpleGrantedAuthority(ROLE_ADMIN));
+                .contains(new SimpleGrantedAuthority(Roles.ADMIN.toString()));
 
         boolean isUser = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getAuthorities()
-                .contains(new SimpleGrantedAuthority(ROLE_USER));
+                .contains(new SimpleGrantedAuthority(Roles.USER.toString()));
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -49,7 +46,7 @@ public class DefaultController {
             modelAndView.addObject("user", principal.getName());
 
             modelAndView.setViewName("reports/admin");
-        } else if (isUser){
+        } else if (isUser) {
             Principal principal = request.getUserPrincipal();
             modelAndView.addObject("user", principal.getName());
 
