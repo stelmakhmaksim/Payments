@@ -93,7 +93,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:[[[#{сardNumber}]], [[[#{сardholderName}]] , [[#{balance}]], [[#{expiresAt}]]', [[#{orders}]],
+            colNames:[ [[#{cardNumber}]], [[#{сardholderName}]], [[#{balance}]], [[#{expiresAt}]], [[#{orders}]] ],
             colModel:[
                 {
                     name:'id',
@@ -111,12 +111,12 @@
                 },
                 {
                     name:'expiration',
-                    width:100,
+                    width:150,
                     align:'center'
                 },
                 {
                     jsonmap:'account.id',
-                    width:70,
+                    width:100,
                     formatter:formatOrdersLink,
                     sortable:false,
                     align:'center'
@@ -157,7 +157,7 @@
 
         $("#grid-table-accounts").jqGrid({
             datatype: "json",
-            colNames:[[[#{accountNumber}]], [[#ownerName]], [[#{balance}]], [[#cards]], [[#{cards}]], [[#{orders}]]],
+            colNames:[ [[#{accountNumber}]], [[#{ownerName}]], [[#{balance}]], [[#{isBlocked}]], [[#{cards}]], [[#{orders}]] ],
             colModel:[
                    {
                        name:'id',
@@ -180,17 +180,17 @@
                        template:'booleanCheckbox',
                        formatoptions: {disabled : true},
                        align: "center",
-                       width:100
+                       width:150
                    },
                    {
                        name:'id',
-                       width:150,
+                       width:200,
                        formatter:formatCardsLink,
                        align:'center'
                    },
                    {
                        name:'id',
-                       width:70,
+                       width:100,
                        formatter:formatOrdersLink,
                        align:'center'
                    }
@@ -228,7 +228,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:['ID', 'Date', 'Time', 'Value', 'Description'],
+            colNames:['ID', [[#{date}]], [[#{time}]], [[#{value}]], [[#{description}]] ],
             colModel:[
                 {
                     name:'id',

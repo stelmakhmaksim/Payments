@@ -85,7 +85,7 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', 'Cards', 'Accounts', ''],
+            colNames:['ID', [[#{firstName}]], [[#{lasttName}]], 'E-mail', [[#{phone}]], [[#{isAdmin}]], [[#{cards}]], [[#{accounts}]], ''],
             colModel:[
                 {
                     name:'id',
@@ -197,7 +197,7 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/cards',
 			datatype: "json",
-			colNames:['Card Number', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account', 'Orders'],
+			colNames:[ [[#{cardNumber}]], [[#{сardholderName}]], [[#{balance}]], [[#{expiresAt}]], [[#{account}]], [[#{orders}]] ],
 			colModel:[
                 {
                     name:'id',
@@ -217,10 +217,6 @@
                     name:'expiration',
                     width:100,
                     align:'center'
-                },
-                {
-                    name:'securityCode',
-                    width:110
                 },
                 {
                     name:'account.id',
@@ -267,7 +263,7 @@
                 mtype: "PUT"
             },
             datatype: "json",
-            colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
+            colNames:[ [[#{accountNumber}]], [[#{ownerName}]], [[#{balance}]], [[#{isBlocked}]], [[#{cards}]], [[#{orders}]] ],
             colModel:[
                    {
                        name:'id',
