@@ -5,6 +5,7 @@ import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Log4j
 public class AuthorizationService {
     private final UserRepository userRepository;
 
@@ -22,9 +24,11 @@ public class AuthorizationService {
     public void save(UserDTO userDTO) {
         userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         userRepository.save(userMapper.userDtoToUser(userDTO));
+        log.info("Save user " + userDTO);
     }
 
     public Optional<UserDTO> findUserByEmail(String email) {
+        log.info("User by email " + email + "was successfully found");
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findByEmail(email)));
     }
 
@@ -37,6 +41,7 @@ public class AuthorizationService {
             oldUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         userRepository.save(oldUser);
+        log.info("Update user " + oldUser);
     }
 
 }

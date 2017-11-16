@@ -38,15 +38,8 @@ class PaymentsController {
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.PUT)
-    public ModelAndView updateAccount(BankAccountDTO accountDTO, String isBlocked, HttpServletRequest request) {
-
-        if (isBlocked.equalsIgnoreCase("true")) {
-            accountDTO.setBlocked(true);
-        } else {
-            accountDTO.setBlocked(false);
-        }
+    public ModelAndView updateAccount(BankAccountDTO accountDTO, HttpServletRequest request) {
         paymentsService.update(accountDTO);
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("reports/accountDetails");
         return modelAndView;
@@ -76,10 +69,18 @@ class PaymentsController {
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public ModelAndView updateOrder(OrderDTO orderDTO, HttpServletRequest request) {
-        paymentsService.create(orderDTO);
+    public ModelAndView createOrder(OrderDTO orderDTO, HttpServletRequest request) {
+        paymentsService.createOrder(orderDTO);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("reports/accountDetails");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ModelAndView createUser(UserDTO userDTO, HttpServletRequest request) {
+        paymentsService.createUser(userDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/reports/admin");
         return modelAndView;
     }
 
