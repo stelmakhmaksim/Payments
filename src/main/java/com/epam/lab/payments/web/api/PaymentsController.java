@@ -78,9 +78,16 @@ class PaymentsController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ModelAndView createUser(UserDTO userDTO, HttpServletRequest request) {
-        paymentsService.createUser(userDTO);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/reports/admin");
+
+        if ("add".equals(userDTO.getOper())) {
+            paymentsService.createUser(userDTO);
+        } else if ("del".equals(userDTO.getOper())) {
+            paymentsService.deleteUser(userDTO);
+        }
+
         return modelAndView;
     }
 

@@ -100,4 +100,8 @@ public class PaymentsService {
     public void createUser(UserDTO userDTO) {
         userRepository.save(userMapper.userDtoToUser(userDTO));
     }
+
+    public void deleteUser(UserDTO userDTO) {
+        userRepository.delete(userMapper.userDtoToUser(userDTO));
+    }
 }
