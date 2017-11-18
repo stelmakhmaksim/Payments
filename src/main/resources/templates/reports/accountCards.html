@@ -61,7 +61,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:['Card Number', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Orders'],
+            colNames:[ [[#{cardNumber}]], [[#{сardholderName}]], [[#{balance}]], [[#{expiresAt}]], [[#{orders}]] ],
             colModel:[
                 {
                     name:'id',
@@ -81,10 +81,6 @@
                     name:'expiration',
                     width:100,
                     align:'center'
-                },
-                {
-                    name:'securityCode',
-                    width:110
                 },
                 {
                     jsonmap:'account.id',

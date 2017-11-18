@@ -93,7 +93,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:['Card Number', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Orders'],
+            colNames:[ [[#{cardNumber}]], [[#{сardholderName}]], [[#{balance}]], [[#{expiresAt}]], [[#{orders}]] ],
             colModel:[
                 {
                     name:'id',
@@ -111,16 +111,12 @@
                 },
                 {
                     name:'expiration',
-                    width:100,
+                    width:150,
                     align:'center'
                 },
                 {
-                    name:'securityCode',
-                    width:110
-                },
-                {
                     jsonmap:'account.id',
-                    width:70,
+                    width:100,
                     formatter:formatOrdersLink,
                     sortable:false,
                     align:'center'
@@ -161,7 +157,7 @@
 
         $("#grid-table-accounts").jqGrid({
             datatype: "json",
-            colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
+            colNames:[ [[#{accountNumber}]], [[#{ownerName}]], [[#{balance}]], [[#{isBlocked}]], [[#{cards}]], [[#{orders}]] ],
             colModel:[
                    {
                        name:'id',
@@ -184,17 +180,17 @@
                        template:'booleanCheckbox',
                        formatoptions: {disabled : true},
                        align: "center",
-                       width:100
+                       width:150
                    },
                    {
                        name:'id',
-                       width:70,
+                       width:200,
                        formatter:formatCardsLink,
                        align:'center'
                    },
                    {
                        name:'id',
-                       width:70,
+                       width:100,
                        formatter:formatOrdersLink,
                        align:'center'
                    }
@@ -232,7 +228,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:['ID', 'Date', 'Time', 'Value', 'Description'],
+            colNames:['ID', [[#{date}]], [[#{time}]], [[#{value}]], [[#{description}]] ],
             colModel:[
                 {
                     name:'id',
