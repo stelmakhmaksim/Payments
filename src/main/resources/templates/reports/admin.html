@@ -92,8 +92,7 @@
                     index:'id',
                     width:30,
                     sortable:true,
-                    editable:true,
-                    editoptions:{size:1}
+                    hidden:true
                 },
                 {
                     name:'firstName',
@@ -152,7 +151,7 @@
                     editoptions:{size:10},
                     width:11,
                     formatter: function() {return '';}
-                }
+                },
             ],
             loadonce: true,
             rowNum: 5,
@@ -167,20 +166,17 @@
                             updatePagerIcons(table);
                     }, 0);
             },
-            editurl:"registration",
-            onclickSubmit : function(params, posdata) {
-                alert(posdata);
-                return {
-                    id: "-1",
-                };
+            editurl:"/api/user",
+            serializeEditData: function(data){
+                return $.param($.extend({}, data, {id:0}));
             }
         });
         $("#adddata").click(function(){
-            jQuery(grid_selector).jqGrid('editGridRow',"new",{reloadAfterSubmit:false});
+            jQuery(grid_selector).jqGrid('editGridRow',"new",{left:-10,top:-10,reloadAfterSubmit:false});
         });
         $("#deldata").click(function(){
             var gr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
-            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
+            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,{left:-10,top:-10,reloadAfterSubmit:false});
             else alert("Please Select Row to delete!");
         });
     });
