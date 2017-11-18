@@ -53,8 +53,8 @@
 
         <table id="editgrid" ></table>
         <div id="pagered" ></div>
-        <input type="BUTTON" id="adddata" value="Add User" />
-        <input type="BUTTON" id="deldata" value="Delete User" />
+        <input type="BUTTON" id="adddata" th:value="#{addUser}" />
+        <input type="BUTTON" id="deldata" th:value="#{deleteUser}" />
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
@@ -85,7 +85,7 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', [[#{firstName}]], [[#{lasttName}]], 'E-mail', [[#{phone}]], [[#{isAdmin}]], [[#{cards}]], [[#{accounts}]], ''],
+            colNames:['ID', [[#{firstName}]], [[#{lastName}]], 'E-mail', [[#{phone}]], [[#{isAdmin}]], [[#{cards}]], [[#{accounts}]], ''],
             colModel:[
                 {
                     name:'id',
