@@ -56,6 +56,26 @@ public class AuthorizationController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ModelAndView adminCreateUser(UserDTO userDTO, BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/reports/admin");
+        if ("add".equals(userDTO.getOper())) {
+            userValidator.validate(userDTO, bindingResult);
+
+            if (bindingResult.hasErrors()) {
+                modelAndView.addObject("errorMessage", bindingResult.getAllErrors());
+                log.info("Some errors when registering user " + bindingResult.getAllErrors());
+            }
+            authorizationService.save(userDTO);
+        } else if ("del".equals(userDTO.getOper())) {
+            authorizationService.delete(userDTO);
+        }
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = {"/", LOGIN}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();

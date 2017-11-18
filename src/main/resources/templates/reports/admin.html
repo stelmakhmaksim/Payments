@@ -54,7 +54,7 @@
         <table id="editgrid" ></table>
         <div id="pagered" ></div>
         <input type="BUTTON" id="adddata" th:value="#{addUser}" />
-        <input type="BUTTON" id="deldata" th:value="#{deleteUser}" />
+        <input type="BUTTON" id="deldata" value="Delete User" />
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
@@ -166,17 +166,27 @@
                             updatePagerIcons(table);
                     }, 0);
             },
-            editurl:"/api/user",
+            editurl:"/user",
             serializeEditData: function(data){
                 return $.param($.extend({}, data, {id:0}));
             }
         });
         $("#adddata").click(function(){
-            jQuery(grid_selector).jqGrid('editGridRow',"new",{left:-10,top:-10,reloadAfterSubmit:false});
+            jQuery(grid_selector).jqGrid('editGridRow',"new",
+                {
+                    left:-10,
+                    top:-10,
+                    reloadAfterSubmit:true
+                });
         });
         $("#deldata").click(function(){
             var gr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
-            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,{left:-10,top:-10,reloadAfterSubmit:false});
+            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,
+                {
+                    left : -10,
+                    top : -10,
+                    reloadAfterSubmit : true
+                });
             else alert("Please Select Row to delete!");
         });
     });

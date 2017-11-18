@@ -25,6 +25,11 @@ public class AuthorizationService {
         log.info("Save user " + userDTO);
     }
 
+    public void delete(UserDTO userDTO) {
+        userRepository.delete(userMapper.userDtoToUser(userDTO));
+        log.info("Delete user " + userDTO);
+    }
+
     public void update(UserDTO user) {
         UserEntity oldUser = userRepository.findByEmail(user.getEmail());
         if (!user.getPhone().isEmpty()) {
