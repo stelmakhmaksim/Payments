@@ -81,6 +81,12 @@ class PaymentsController {
         return ResponseEntity.ok(paymentsService.findAllOrders());
     }
 
+    @GetMapping("/user/{id}/orders")
+    public ResponseEntity<List<OrderDTO>> getOrdersByUserId(
+            @PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok(paymentsService.findOrdersByUserId(userId));
+    }
+
     @GetMapping("/account/{id}/orders")
     public ResponseEntity<List<OrderDTO>> getOrdersByAccountId(
             @PathVariable(value = "id") Integer accountId) {

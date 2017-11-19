@@ -84,6 +84,11 @@ public class PaymentsService {
         return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
     }
 
+    public List<OrderDTO> findOrdersByUserId(Integer userId) {
+        log.info("All orders by userId " + userId + " were successfully found");
+        return orderMapper.ordersToOrdersDto(orderRepository.findByUserId(userId));
+    }
+
     public void update(BankAccountDTO accountDTO) {
         BankAccountEntity oldAccount = bankAccountRepository.findOne(accountDTO.getId());
         oldAccount.setOwnerName(accountDTO.getOwnerName());
