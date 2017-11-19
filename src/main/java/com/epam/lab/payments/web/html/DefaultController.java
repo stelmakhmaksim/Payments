@@ -41,7 +41,7 @@ public class DefaultController {
 
         ModelAndView modelAndView = new ModelAndView();
         Principal principal = request.getUserPrincipal();
-        modelAndView.addObject("user", principal.getName());
+        modelAndView.addObject("principal", principal.getName());
 
         UserEntity userEntity = userDetailsService.loadUserEntityByUsername(principal.getName());
         modelAndView.addObject("firstName", userEntity.getFirstName());

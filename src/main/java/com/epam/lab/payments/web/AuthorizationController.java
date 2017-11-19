@@ -67,8 +67,9 @@ public class AuthorizationController {
             if (bindingResult.hasErrors()) {
                 modelAndView.addObject("errorMessage", bindingResult.getAllErrors());
                 log.info("Some errors when registering user " + bindingResult.getAllErrors());
+            } else {
+                authorizationService.save(userDTO);
             }
-            authorizationService.save(userDTO);
         } else if ("del".equals(userDTO.getOper())) {
             authorizationService.delete(userDTO);
         }

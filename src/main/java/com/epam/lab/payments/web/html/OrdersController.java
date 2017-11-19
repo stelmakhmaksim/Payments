@@ -16,7 +16,7 @@ public class OrdersController {
     public ModelAndView orders(@PathVariable("id") String id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         Principal principal = request.getUserPrincipal();
-        modelAndView.addObject("user", principal.getName());
+        modelAndView.addObject("principal", principal.getName());
         modelAndView.addObject("accountId", id);
         modelAndView.addObject("accountNumber", CardNumberAdjuster.valueOf16Digits(id));
         modelAndView.setViewName("reports/madeOrders");
