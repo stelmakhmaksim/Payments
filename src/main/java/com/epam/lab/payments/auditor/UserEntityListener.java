@@ -1,7 +1,7 @@
 package com.epam.lab.payments.auditor;
 
 import com.epam.lab.payments.domain.UserEntity;
-import com.epam.lab.payments.domain.UserHistory;
+import com.epam.lab.payments.domain.UserHistoryEntity;
 import com.epam.lab.payments.services.BeanUtil;
 
 import javax.persistence.EntityManager;
@@ -34,6 +34,6 @@ public class UserEntityListener {
     @Transactional(MANDATORY)
     void perform(UserEntity target, Action action) {
         EntityManager entityManager = BeanUtil.getBean(EntityManager.class);
-        entityManager.persist(new UserHistory(target, action));
+        entityManager.persist(new UserHistoryEntity(target, action));
     }
 }
