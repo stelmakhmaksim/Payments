@@ -1,19 +1,25 @@
 package com.epam.lab.payments.domain;
 
+import com.epam.lab.payments.auditor.Auditable;
+import com.epam.lab.payments.auditor.UserEntityListener;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user", schema = "public")
+@EntityListeners(UserEntityListener.class)
 @Data
-public class UserEntity {
+@EqualsAndHashCode(callSuper = true)
+@Table(name = "user", schema = "public")
+public class UserEntity extends Auditable<String> {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
