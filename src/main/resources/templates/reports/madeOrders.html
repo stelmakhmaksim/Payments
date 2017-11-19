@@ -66,7 +66,8 @@
                 {
                     name:'id',
                     index:'id',
-                    width:30
+                    width:30,
+                    hidden:true
                 },
                 {
                     name:'date',
@@ -102,8 +103,6 @@
             rowList:[10, 20, 30],
             pager : pager_selector,
             altRows: true,
-            multiselect: true,
-            multiboxonly: true,
             loadComplete : function() {
                     var table = this;
                     setTimeout(function(){

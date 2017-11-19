@@ -32,8 +32,8 @@ class PaymentsController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getUserById(
             @PathVariable(value = "id") Integer userId) {
-        Optional<UserDTO> userEntity = paymentsService.findOneUser(userId);
-        return userEntity.map(ResponseEntity::ok)
+        Optional<UserDTO> userDto = paymentsService.findOneUser(userId);
+        return userDto.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 

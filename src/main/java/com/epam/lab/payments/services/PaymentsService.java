@@ -34,6 +34,8 @@ public class PaymentsService {
     private final BankAccountMapper accountMapper;
     private final OrderMapper orderMapper;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Users
     public List<UserDTO> findAllUsers() {
         log.info("All users were successfully found");
         return userMapper.usersToUsersDto(userRepository.findAll());
@@ -44,6 +46,8 @@ public class PaymentsService {
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findOne(userId)));
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Cards
     public List<CreditCardDTO> findAllCreditCard() {
         log.info("All credit cards were successfully found");
         return cardMapper.cardsToCardsDto(creditCardRepository.findAll());
@@ -64,6 +68,8 @@ public class PaymentsService {
         return cardMapper.cardsToCardsDto(creditCardRepository.findByAccountId(accountId));
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Accounts
     public List<BankAccountDTO> findAccountsByUserId(Integer userId) {
         log.info("All accounts by userId " + userId + " were successfully found");
         return accountMapper.accountsToAccountsDto(bankAccountRepository.findByUserId(userId));
@@ -74,6 +80,13 @@ public class PaymentsService {
         return accountMapper.accountsToAccountsDto(bankAccountRepository.findAll());
     }
 
+    public Optional<BankAccountDTO> findOneBankAccount(Integer accountId) {
+        log.info("Account by id " + accountId + " was successfully found");
+        return Optional.ofNullable(accountMapper.accountToAccountDto(bankAccountRepository.findOne(accountId)));
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Orders
     public List<OrderDTO> findAllOrders() {
         log.info("All orders were successfully found");
         return orderMapper.ordersToOrdersDto(orderRepository.findAll());
@@ -83,6 +96,7 @@ public class PaymentsService {
         log.info("All orders by AccountId " + accountId + " were successfully found");
         return orderMapper.ordersToOrdersDto(orderRepository.findByAccountId(accountId));
     }
+
 
     public void update(BankAccountDTO accountDTO) {
         BankAccountEntity oldAccount = bankAccountRepository.findOne(accountDTO.getId());

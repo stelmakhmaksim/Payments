@@ -88,7 +88,7 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', [[#{firstName}]], [[#{lastName}]], 'E-mail', [[#{phone}]], [[#{isAdmin}]], [[#{cards}]], [[#{accounts}]], ''],
+            colNames:['ID', [[#{firstName}]], [[#{lastName}]], 'E-mail', [[#{phone}]], [[#{isAdmin}]], [[#{cards}]], [[#{accounts}]], 'Password'],
             colModel:[
                 {
                     name:'id',
@@ -129,21 +129,21 @@
                     name:'admin',
                     index:'admin',
                     template: "booleanCheckbox",
-                    width:70,
+                    width:80,
                     editable:true,
                     editoptions:{size:1}
                 },
                 {
                     name:'id',
                     index:'id',
-                    width:70,
+                    width:130,
                     formatter:formatUserCardsLink,
                     align:'center'
                 },
                 {
                     name:'id',
                     index:'id',
-                    width:80,
+                    width:130,
                     formatter:formatUserAccountsLink,
                     sortable:false,
                     align:'center'
@@ -151,9 +151,9 @@
                 {
                     name:'password',
                     editable:true,
+                    hidden: true,
                     editoptions:{size:10},
-                    width:11,
-                    formatter: function() {return '';}
+                    editrules: {edithidden: true}
                 },
             ],
             loadonce: true,
@@ -234,7 +234,7 @@
                 },
                 {
                     name:'account.id',
-                    width:70,
+                    width:80,
                     formatter:formatOrdersLink,
                     sortable:false,
                     align:'center'
@@ -295,11 +295,11 @@
                        template:'booleanCheckbox',
                        formatoptions: {disabled : true},
                        align: "center",
-                       width:100
+                       width:110
                    },
                    {
                        name:'id',
-                       width:70,
+                       width:130,
                        formatter:formatCardsLink,
                        align:'center'
                    },
