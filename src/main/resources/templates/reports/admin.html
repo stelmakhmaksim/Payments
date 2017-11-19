@@ -45,16 +45,19 @@
         </div><!--/.nav-collapse -->
     </div>
 </div>
+
 <div class="container" style="padding:50px 50px;">
+    <div align="right" style="color:#9D3737" >
+        <h1 th:text="#{administratorPanel} + ': ' + ${firstName} + ' ' + ${lastName}"></h1>
+    </div>
     <div class="col-sm-10">
         <h1 th:text="#{users}"></h1>
         <table id="grid-table-users"></table>
         <div id="grid-pager-users"></div>
-
         <table id="editgrid" ></table>
         <div id="pagered" ></div>
         <input type="BUTTON" id="adddata" th:value="#{addUser}" />
-        <input type="BUTTON" id="deldata" value="Delete User" />
+        <input type="BUTTON" id="deldata" th:value="#{deleteUser}" />
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">

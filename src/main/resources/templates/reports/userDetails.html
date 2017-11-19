@@ -48,11 +48,11 @@
 </div>
 
 <div class="container" style="padding:50px 50px;">
-    <div align="center">
+    <div align="right" style="color:#379037" >
         <h1 th:text="#{user} + ': ' + ${firstName} + ' ' + ${lastName}"></h1>
     </div>
     <div class="col-sm-10">
-        <h2 th:text="#{cards}"></h2>
+        <h1 th:text="#{cards}"></h1>
         <table id="grid-table-cards"></table>
         <div id="grid-pager-cards"></div>
     </div>
@@ -66,7 +66,7 @@
 </div>
 <div class="container" style="padding:50px 50px;">
     <div class="col-sm-10">
-        <h2 th:text="#{orders}"></h2>
+        <h1 th:text="#{orders}"></h1>
         <table id="grid-table-orders"></table>
         <div id="grid-pager-orders"></div>
 

@@ -40,21 +40,17 @@ public class DefaultController {
                 .contains(new SimpleGrantedAuthority(Roles.USER.toString()));
 
         ModelAndView modelAndView = new ModelAndView();
+        Principal principal = request.getUserPrincipal();
+        modelAndView.addObject("user", principal.getName());
+
+        UserEntity userEntity = userDetailsService.loadUserEntityByUsername(principal.getName());
+        modelAndView.addObject("firstName", userEntity.getFirstName());
+        modelAndView.addObject("lastName", userEntity.getLastName());
 
         if (isAdmin) {
-            Principal principal = request.getUserPrincipal();
-            modelAndView.addObject("user", principal.getName());
-
             modelAndView.setViewName("reports/admin");
         } else if (isUser) {
-            Principal principal = request.getUserPrincipal();
-            modelAndView.addObject("user", principal.getName());
-
-            UserEntity userEntity = userDetailsService.loadUserEntityByUsername(principal.getName());
             modelAndView.addObject("id", userEntity.getId());
-            modelAndView.addObject("firstName", userEntity.getFirstName());
-            modelAndView.addObject("lastName", userEntity.getLastName());
-
             modelAndView.setViewName("reports/userDetails");
         } else {
             modelAndView.addObject("error", "Authorization Error");
