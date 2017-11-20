@@ -13,10 +13,13 @@ public class UserAccountsController {
 
     @RequestMapping("/userAccounts/{id}")
     public ModelAndView accounts(@PathVariable("id") String id, HttpServletRequest request) {
+
         ModelAndView modelAndView = new ModelAndView();
         Principal principal = request.getUserPrincipal();
         modelAndView.addObject("principal", principal.getName());
+
         modelAndView.addObject("userId", id);
+
         modelAndView.setViewName("reports/userAccounts");
         return modelAndView;
     }

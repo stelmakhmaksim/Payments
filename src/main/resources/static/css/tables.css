@@ -1,4 +1,8 @@
-.ui-jqgrid .ui-jqgrid-view {
+
+        .ui-jqdialog {background-color: #FFFFFF;}
+        .ui-widget-content {border: 2px solid #DDD;}
+
+        .ui-jqgrid .ui-jqgrid-view {
 			z-index: auto;
 		}
 		.ui-jqgrid .ui-jqgrid-view, .ui-jqgrid .ui-paging-info, .ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-pg-table {
