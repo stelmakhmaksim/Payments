@@ -1,5 +1,10 @@
 package com.epam.lab.payments.auditor;
 
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+@RequiredArgsConstructor
+@ToString
 public enum Action {
     INSERTED("INSERTED"),
     UPDATED("UPDATED"),
@@ -7,16 +12,7 @@ public enum Action {
 
     private final String name;
 
-    Action(String name) {
-        this.name = name;
-    }
-
     public String value() {
         return this.name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }
