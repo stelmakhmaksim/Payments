@@ -25,7 +25,7 @@ public class IndexController {
                 .contains(new SimpleGrantedAuthority(Roles.ADMIN.toString()));
 
         if (isAdmin) {
-            modelAndView.addObject("user", principal.getName());
+            modelAndView.addObject("principal", principal.getName());
             modelAndView.setViewName("reports/admin");
         } else {
             modelAndView.setViewName("default");

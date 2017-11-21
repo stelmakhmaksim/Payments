@@ -5,11 +5,12 @@
     <meta charset="utf-8" />
     <meta name="description" content="Dynamic tables and grids using jqGrid plugin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Account Cards</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/css/ui.jqgrid.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="http://klever-hotel.ru/css/card.css" />
+    <link rel="stylesheet" href="../../css/tables.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
     <script src="../js/formatters.js"></script>
@@ -29,7 +30,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/default" th:text="#{goodDay} + ', ' + ${user}"></a></li>
+                <li><a href="/default" th:text="#{goodDay} + ', ' + ${principal}"></a></li>
                 <li>
                     <form class="navbar-form navbar-right" role="form" action="/logout">
                         <button type="submit" class="btn btn-success" th:text="#{logout}"></button>
@@ -40,9 +41,15 @@
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
-    <h1 th:text="#{cardsOfTheAccount} + ' № [' + ${accountNumber} + ']'"></h1>
-    <BR>
-    <div id="header"></div>
+    <div align="right" th:switch="${isAdmin}">
+        <h1 th:case="${true}" style="color:#9D3737" th:text="#{administratorPanel}"></h1>
+        <h1 th:case="*" style="color:#379037" th:text="#{user} + ': ' + ${firstName} + ' ' + ${lastName}"></h1>
+    </div>
+    <div class="col-sm-10">
+        <h1 th:text="#{cardsOfTheAccount}"></h1>
+        <h1 th:text="' № [' + ${accountNumber} + ']'"></h1>
+        <BR>
+    </div>
     <div class="col-sm-10">
         <table id="grid-table-cards"></table>
         <div id="grid-pager-cards"></div>
@@ -61,7 +68,7 @@
 
         jQuery(grid_selector).jqGrid({
             datatype: "json",
-            colNames:['Card Number', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Orders'],
+            colNames:[ [[#{cardNumber}]], [[#{сardholderName}]], [[#{balance}]], [[#{expiresAt}]], [[#{orders}]] ],
             colModel:[
                 {
                     name:'id',
@@ -83,10 +90,6 @@
                     align:'center'
                 },
                 {
-                    name:'securityCode',
-                    width:110
-                },
-                {
                     jsonmap:'account.id',
                     width:70,
                     formatter:formatOrdersLink,
@@ -103,9 +106,6 @@
             rowList:[10, 20, 30],
             pager : pager_selector,
             altRows: true,
-            multiselect: true,
-            multiboxonly: true,
-            caption: "On this account the following cards were issued:",
             loadComplete : function() {
                     var table = this;
                     setTimeout(function(){

@@ -32,8 +32,8 @@ class PaymentsController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getUserById(
             @PathVariable(value = "id") Integer userId) {
-        Optional<UserDTO> userEntity = paymentsService.findOneUser(userId);
-        return userEntity.map(ResponseEntity::ok)
+        Optional<UserDTO> userDto = paymentsService.findOneUser(userId);
+        return userDto.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -76,17 +76,15 @@ class PaymentsController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ModelAndView createUser(UserDTO userDTO, HttpServletRequest request) {
-        paymentsService.createUser(userDTO);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/reports/admin");
-        return modelAndView;
-    }
-
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> getAllOrders() {
         return ResponseEntity.ok(paymentsService.findAllOrders());
+    }
+
+    @GetMapping("/user/{id}/orders")
+    public ResponseEntity<List<OrderDTO>> getOrdersByUserId(
+            @PathVariable(value = "id") Integer userId) {
+        return ResponseEntity.ok(paymentsService.findOrdersByUserId(userId));
     }
 
     @GetMapping("/account/{id}/orders")

@@ -5,16 +5,12 @@
     <meta charset="utf-8" />
     <meta name="description" content="Dynamic tables and grids using jqGrid plugin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/css/ui.jqgrid.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="http://klever-hotel.ru/css/card.css" />
-
-    <style>
-        .ui-jqdialog { background-color: #5CB85C;}
-     </style>
-
+    <link rel="stylesheet" href="../../css/tables.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
     <script src="../js/formatters.js"></script>
@@ -34,7 +30,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/default" th:text="#{goodDay} + ', ' + ${user}"></a></li>
+                <li><a href="/default" th:text="#{goodDay} + ', ' + ${principal}"></a></li>
                 <li>
                     <form class="navbar-form navbar-right" role="form" action="/logout">
                         <button type="submit" class="btn btn-success" th:text="#{logout}"></button>
@@ -44,16 +40,19 @@
         </div><!--/.nav-collapse -->
     </div>
 </div>
+
 <div class="container" style="padding:50px 50px;">
+    <div align="right" style="color:#9D3737" >
+        <h1 th:text="#{administratorPanel} + ': ' + ${firstName} + ' ' + ${lastName}"></h1>
+    </div>
     <div class="col-sm-10">
         <h1 th:text="#{users}"></h1>
         <table id="grid-table-users"></table>
         <div id="grid-pager-users"></div>
-
         <table id="editgrid" ></table>
         <div id="pagered" ></div>
-        <input type="BUTTON" id="adddata" value="Add User" />
-        <input type="BUTTON" id="deldata" value="Delete User" />
+        <input type="BUTTON" id="adddata" th:value="#{addUser}" />
+        <input type="BUTTON" id="deldata" th:value="#{deleteUser}" />
     </div>
 </div>
 <div class="container" style="padding:50px 50px;">
@@ -72,7 +71,7 @@
 </div>
 </body>
 
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Users
@@ -84,15 +83,14 @@
         jQuery(grid_selector).jqGrid({
             url:'/api/users',
             datatype: "json",
-            colNames:['ID', 'First Name', 'Last Name', 'E-mail', 'Phone', 'Is Admin', 'Cards', 'Accounts', ''],
+            colNames:['ID', [[#{firstName}]], [[#{lastName}]], 'E-mail', [[#{phone}]], [[#{isAdmin}]], [[#{cards}]], [[#{accounts}]], 'Password'],
             colModel:[
                 {
                     name:'id',
                     index:'id',
                     width:30,
                     sortable:true,
-                    editable:true,
-                    editoptions:{size:1}
+                    hidden:true
                 },
                 {
                     name:'firstName',
@@ -126,21 +124,21 @@
                     name:'admin',
                     index:'admin',
                     template: "booleanCheckbox",
-                    width:70,
+                    width:80,
                     editable:true,
                     editoptions:{size:1}
                 },
                 {
                     name:'id',
                     index:'id',
-                    width:70,
+                    width:130,
                     formatter:formatUserCardsLink,
                     align:'center'
                 },
                 {
                     name:'id',
                     index:'id',
-                    width:80,
+                    width:130,
                     formatter:formatUserAccountsLink,
                     sortable:false,
                     align:'center'
@@ -148,10 +146,10 @@
                 {
                     name:'password',
                     editable:true,
+                    hidden: true,
                     editoptions:{size:10},
-                    width:11,
-                    formatter: function formatEmpty() {return '';}
-                }
+                    editrules: {edithidden: true}
+                },
             ],
             loadonce: true,
             rowNum: 5,
@@ -160,21 +158,33 @@
             altRows: true,
             multiselect: false,
             multiboxonly: true,
-            caption: "Full list of users:",
             loadComplete : function() {
                     var table = this;
                     setTimeout(function(){
                             updatePagerIcons(table);
                     }, 0);
             },
-            editurl:"api/user"
+            editurl:"/user",
+            serializeEditData: function(data){
+                return $.param($.extend({}, data, {id:0}));
+            }
         });
         $("#adddata").click(function(){
-            jQuery(grid_selector).jqGrid('editGridRow',"new",{reloadAfterSubmit:false});
+            jQuery(grid_selector).jqGrid('editGridRow',"new",
+                {
+                    left:-10,
+                    top:-10,
+                    reloadAfterSubmit:true
+                });
         });
         $("#deldata").click(function(){
             var gr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
-            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
+            if( gr != null ) jQuery(grid_selector).jqGrid('delGridRow',gr,
+                {
+                    left : -10,
+                    top : -10,
+                    reloadAfterSubmit : true
+                });
             else alert("Please Select Row to delete!");
         });
     });
@@ -191,7 +201,7 @@
 		jQuery(grid_selector).jqGrid({
 			url:'/api/cards',
 			datatype: "json",
-			colNames:['Card Number', 'Cardholder Name', 'Balance', 'Expires at', 'Security Code', 'Account', 'Orders'],
+			colNames:[ [[#{cardNumber}]], [[#{сardholderName}]], [[#{balance}]], [[#{expiresAt}]], [[#{account}]], [[#{orders}]] ],
 			colModel:[
                 {
                     name:'id',
@@ -213,17 +223,13 @@
                     align:'center'
                 },
                 {
-                    name:'securityCode',
-                    width:110
-                },
-                {
                     name:'account.id',
                     width:150,
                     formatter:formatAccountLink
                 },
                 {
                     name:'account.id',
-                    width:70,
+                    width:80,
                     formatter:formatOrdersLink,
                     sortable:false,
                     align:'center'
@@ -236,7 +242,6 @@
 			altRows: true,
 			multiselect: false,
 			multiboxonly: true,
-			caption: "Full list of cards:",
 			loadComplete : function() {
 					var table = this;
 					setTimeout(function(){
@@ -262,7 +267,7 @@
                 mtype: "PUT"
             },
             datatype: "json",
-            colNames:['Account Number', 'Owner Name', 'Balance', 'Is Blocked', 'Cards', 'Orders'],
+            colNames:[ [[#{accountNumber}]], [[#{ownerName}]], [[#{balance}]], [[#{isBlocked}]], [[#{cards}]], [[#{orders}]] ],
             colModel:[
                    {
                        name:'id',
@@ -285,11 +290,11 @@
                        template:'booleanCheckbox',
                        formatoptions: {disabled : true},
                        align: "center",
-                       width:100
+                       width:110
                    },
                    {
                        name:'id',
-                       width:70,
+                       width:130,
                        formatter:formatCardsLink,
                        align:'center'
                    },
@@ -303,11 +308,10 @@
             sortname: 'id',
             loadonce: true,
             viewrecords: true,
-            onSelectRow: editRow, // the javascript function to call on row click. will ues to to put the row in edit mode
+            onSelectRow: editRow,
             rowNum: 5,
             rowList:[5, 10, 20, 30],
             pager: pager_selector,
-            caption: "Full list of accounts:",
             loadComplete : function() {
                 var table = this;
                 setTimeout(function(){
