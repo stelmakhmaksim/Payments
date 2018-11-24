@@ -7,11 +7,7 @@ import com.epam.lab.payments.dto.UserDTO;
 import com.epam.lab.payments.services.PaymentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +33,7 @@ class PaymentsController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @RequestMapping(value = "/account", method = RequestMethod.PUT)
+    @PutMapping(value = "/account")
     public ModelAndView updateAccount(BankAccountDTO accountDTO, HttpServletRequest request) {
         paymentsService.update(accountDTO);
         ModelAndView modelAndView = new ModelAndView();

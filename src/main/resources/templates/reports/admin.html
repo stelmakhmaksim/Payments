@@ -30,7 +30,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/default" th:text="#{goodDay} + ', ' + ${principal}"></a></li>
+                <li><a href="/default" th:text="#{goodDay} + ', ' + ${firstName} + ' ' + ${lastName}"></a></li>
                 <li>
                     <form class="navbar-form navbar-right" role="form" action="/logout">
                         <button type="submit" class="btn btn-success" th:text="#{logout}"></button>
@@ -124,7 +124,8 @@
                     name:'admin',
                     index:'admin',
                     template: "booleanCheckbox",
-                    width:80,
+                    width:100,
+                    formatoptions: {disabled : false},
                     editable:true,
                     editoptions:{size:1}
                 },
@@ -164,6 +165,7 @@
                             updatePagerIcons(table);
                     }, 0);
             },
+            onSelectRow: editRow,
             editurl:"/user",
             serializeEditData: function(data){
                 return $.param($.extend({}, data, {id:0}));
@@ -187,6 +189,17 @@
                 });
             else alert("Please Select Row to delete!");
         });
+
+        var lastSelection;
+        function editRow(id) {
+            alert("I'm here!");
+            if (id && id !== lastSelection) {
+                var grid = $("#grid-table-accounts");
+                grid.jqGrid('restoreRow',lastSelection);
+                grid.jqGrid('editRow',id, {keys: true} );
+                lastSelection = id;
+            }
+        }
     });
 
 
@@ -288,7 +301,7 @@
                        name:'blocked',
                        editable: true,
                        template:'booleanCheckbox',
-                       formatoptions: {disabled : true},
+                       formatoptions: {disabled : false},
                        align: "center",
                        width:110
                    },
@@ -322,6 +335,7 @@
 
         var lastSelection;
         function editRow(id) {
+            alert("I'm here!");
             if (id && id !== lastSelection) {
                 var grid = $("#grid-table-accounts");
                 grid.jqGrid('restoreRow',lastSelection);

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,6 +44,13 @@ public class AuthorizationController {
             modelAndView.addObject("user", user);
             modelAndView.addObject("successMessage",
                     "Some fields have errors");
+            String error = "";
+            for (ObjectError obj : bindingResult.getAllErrors()) {
+                if (obj.getDefaultMessage() != null)
+                    error += obj.getDefaultMessage() + "<hr/>";
+            }
+
+            modelAndView.addObject("successMessage", error);
             modelAndView.setViewName(REGISTRATION);
             log.info("Some errors when registering user " + bindingResult.getAllErrors());
         } else {
