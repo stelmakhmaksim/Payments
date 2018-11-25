@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta charset="utf-8"/>
+  <meta name="description" content="Dynamic tables and grids using jqGrid plugin"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Payments</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/css/ui.jqgrid.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="../../css/tables.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
+  <script src="../js/formatters.js"></script>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+  <title>Payments</title>
+
+  <script type="text/javascript">
+    function submit(){
+      var e = document.getElementById("cardNumber");
+      var value = e.options[e.selectedIndex].value;
+      alert('Количество правильных ответов: '+ value);
+
+     /* var trueAnswerCount=0;
+      var arrAnswers=['РОМАШКА','РОМАШКИ'];
+      if(checkAnswers('puzzle1',arrAnswers))
+        trueAnswerCount++;
+      arrAnswers=['ЁЛКА','ЕЛКА','ЕЛКИ','ЕЛЬ'];
+      if(checkAnswers('puzzle2',arrAnswers))
+        trueAnswerCount++;
+      arrAnswers=['ГРОЗА','ГРОЗЫ',];
+      if(checkAnswers('puzzle3', arrAnswers))
+        trueAnswerCount++;
+      if(trueAnswerCount==0)
+        alert('Вы ничего не угадали.');
+      else alert('Количество правильных ответов: '+ trueAnswerCount);*/
+
+    }
+
+    function checkAnswers(puzzle,arrAnswers){
+      var userAnswer = document.getElementById(puzzle).value;
+      userAnswer=userAnswer.toUpperCase();
+      if(userAnswer==arrAnswers[0] || userAnswer==arrAnswers[1] || userAnswer==arrAnswers[2] || userAnswer==arrAnswers[3])
+        return true;
+      else return false;
+    }
+  </script>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" th:text="#{payments}"></a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/default" th:text="#{goodDay} + ', ' + ${firstName} + ' ' + ${lastName}"></a></li>
+        <li>
+          <form class="navbar-form navbar-right" role="form" action="/default">
+            <button type="submit" class="btn btn-success" th:text="#{backToPersonalCabinet}"></button>
+          </form>
+        </li>
+        <li>
+          <form class="navbar-form navbar-right" role="form" action="/logout">
+            <button type="submit" class="btn btn-success" th:text="#{logout}"></button>
+          </form>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div id="content_box">
+  <br/><br/><br/>
+  <div id="content_title">
+    <h2 align="center" >Payment for services or goods</h2>
+  </div>
+  <div id="content">
+    <form align="center" id="form">
+      <p align="center">Choose a credit card
+      <p/>
+
+      <select id ="cardNumber" align="center" th:field="*{cardNumbers}">
+        <option th:each="card : ${cardNumbers}"
+                th:value="${card}"
+                th:utext="${card}"/>
+      </select>
+
+      <p align="center">Name of service or goods
+      <p/>
+      <input align="center" type="text" id="service"/>
+
+      <p align="center">Enter the price of goods
+      <p/>
+      <input align="center" type="number" id="price"/>
+      <br><br>
+
+      <input align="center" type="button" value="Submit" onClick="submit()"/>
+
+      <button align="center" type="button" onclick="form.reset()">Clear</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -29,7 +29,7 @@ import java.util.Arrays;
 @SpringBootTest(classes = Payments.class)
 @WebAppConfiguration
 @WithMockUser(roles="user")
-public class PaymentsControllerTest {
+public class PaymentControllerTest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
