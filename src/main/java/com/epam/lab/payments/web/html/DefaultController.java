@@ -41,11 +41,17 @@ public class DefaultController {
 
         ModelAndView modelAndView = new ModelAndView();
         Principal principal = request.getUserPrincipal();
+        if(principal==null) {
+            modelAndView.addObject("error", "Authorization Error");
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
         modelAndView.addObject("principal", principal.getName());
 
         UserEntity principalEntity = userDetailsService.loadUserEntityByUsername(principal.getName());
         modelAndView.addObject("firstName", principalEntity.getFirstName());
         modelAndView.addObject("lastName", principalEntity.getLastName());
+
 
         if (isAdmin) {
             modelAndView.setViewName("reports/admin");

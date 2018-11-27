@@ -14,38 +14,35 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/js/jquery.jqgrid.min.js"></script>
   <script src="../js/formatters.js"></script>
-  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Payments</title>
 
   <script type="text/javascript">
-    function submit(){
+    function submit1(){
       var e = document.getElementById("cardNumber");
-      var value = e.options[e.selectedIndex].value;
-      alert('Количество правильных ответов: '+ value);
+      var value = e.options[e.selectedIndex].value.toString();
 
-     /* var trueAnswerCount=0;
-      var arrAnswers=['РОМАШКА','РОМАШКИ'];
-      if(checkAnswers('puzzle1',arrAnswers))
-        trueAnswerCount++;
-      arrAnswers=['ЁЛКА','ЕЛКА','ЕЛКИ','ЕЛЬ'];
-      if(checkAnswers('puzzle2',arrAnswers))
-        trueAnswerCount++;
-      arrAnswers=['ГРОЗА','ГРОЗЫ',];
-      if(checkAnswers('puzzle3', arrAnswers))
-        trueAnswerCount++;
-      if(trueAnswerCount==0)
-        alert('Вы ничего не угадали.');
-      else alert('Количество правильных ответов: '+ trueAnswerCount);*/
+      var p = document.getElementById("price").value.toString();
+      var s = document.getElementById("service").value.toString();
 
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:8080/payment', true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+        if (xhr.status == 200) {
+          alert("Payment completed successfully");
+          console.log(xhr.status + ': ' + xhr.statusText);
+        } else {
+          window.location.href = 'error.html'
+          console.log(xhr.responseText);
+        }
+      }
+
+      xhr.send(JSON.stringify({cardNumber: value, price: p, service: s}));
     }
 
-    function checkAnswers(puzzle,arrAnswers){
-      var userAnswer = document.getElementById(puzzle).value;
-      userAnswer=userAnswer.toUpperCase();
-      if(userAnswer==arrAnswers[0] || userAnswer==arrAnswers[1] || userAnswer==arrAnswers[2] || userAnswer==arrAnswers[3])
-        return true;
-      else return false;
-    }
   </script>
 
 </head>
@@ -102,12 +99,12 @@
 
       <p align="center">Enter the price of goods
       <p/>
-      <input align="center" type="number" id="price"/>
+      <input align="center" type="number" min="1" oninput="validity.valid||(value='');" id="price"/>
       <br><br>
 
-      <input align="center" type="button" value="Submit" onClick="submit()"/>
+      <input align="center" type="button" value="Submit" onClick="submit1()"/>
 
-      <button align="center" type="button" onclick="form.reset()">Clear</button>
+      <button align="center" type="button" onclick="submit()">Clear</button>
     </form>
   </div>
 </div>

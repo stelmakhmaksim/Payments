@@ -13,6 +13,7 @@ import com.epam.lab.payments.mappers.BankAccountMapper;
 import com.epam.lab.payments.mappers.CreditCardMapper;
 import com.epam.lab.payments.mappers.OrderMapper;
 import com.epam.lab.payments.mappers.UserMapper;
+import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class PaymentsService {
     private final CreditCardMapper cardMapper;
     private final BankAccountMapper accountMapper;
     private final OrderMapper orderMapper;
+
+    @PostConstruct
+    public void init() {
+        //creditCardRepository.findAll().stream().forEach(c->c.set.getAccount().getBalance())
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Users
@@ -101,6 +107,10 @@ public class PaymentsService {
     public List<OrderDTO> findOrdersByUserId(Integer userId) {
         log.info("All orders by userId " + userId + " were successfully found");
         return orderMapper.ordersToOrdersDto(orderRepository.findByUserId(userId));
+    }
+
+    public CreditCardDTO findCardById(Integer cardId) {
+        return cardMapper.cardToCardDto(creditCardRepository.findById(cardId).get());
     }
 
     public void update(BankAccountDTO accountDTO) {
