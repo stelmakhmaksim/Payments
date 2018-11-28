@@ -32,6 +32,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/default" th:text="#{goodDay} + ', '+ ${firstName} + ' ' + ${lastName}"></a></li>
                 <li>
+                    <form class="navbar-form navbar-right" role="form" action="/refill">
+                        <button type="submit" class="btn btn-success" th:text="#{refill}"></button>
+                    </form>
+                </li>
+                <li>
                     <form class="navbar-form navbar-right" role="form" action="/payment">
                         <button type="submit" class="btn btn-success" th:text="#{makePayment}"></button>
                     </form>

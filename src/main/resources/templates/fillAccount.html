@@ -5,7 +5,7 @@
   <meta charset="utf-8"/>
   <meta name="description" content="Dynamic tables and grids using jqGrid plugin"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>Payments</title>
+  <title>Refill account</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.13.5/css/ui.jqgrid.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans"/>
@@ -22,11 +22,10 @@
       var e = document.getElementById("cardNumber");
       var value = e.options[e.selectedIndex].value.toString();
 
-      var p = document.getElementById("price").value.toString();
-      var s = document.getElementById("service").value.toString();
+      var p = document.getElementById("amount").value.toString();
 
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:8080/payment', true);
+      xhr.open('POST', 'http://localhost:8080/refill', true);
       xhr.setRequestHeader("Content-Type", "application/json");
 
       xhr.onreadystatechange = function() {
@@ -41,8 +40,9 @@
         }
       }
 
-      xhr.send(JSON.stringify({cardNumber: value, price: p, service: s}));
+      xhr.send(JSON.stringify({cardNumber: value, amount: p}));
     }
+
 
   </script>
 
@@ -81,26 +81,22 @@
 <div id="content_box">
   <br/><br/><br/>
   <div id="content_title">
-    <h2 align="center" >Payment for services or goods</h2>
+    <h2 align="center">Payment for services or goods</h2>
   </div>
   <div id="content">
     <form align="center" id="form">
       <p align="center">Choose a credit card
       <p/>
 
-      <select id ="cardNumber" align="center" th:field="*{cardNumbers}">
+      <select id="cardNumber" align="center" th:field="*{cardNumbers}">
         <option th:each="card : ${cardNumbers}"
                 th:value="${card}"
                 th:utext="${card}"/>
       </select>
 
-      <p align="center">Name of service or goods
+      <p align="center">Refill amount
       <p/>
-      <input align="center" type="text" id="service"/>
-
-      <p align="center">Enter the price of goods
-      <p/>
-      <input align="center" type="number" min="1" oninput="validity.valid||(value='');" id="price"/>
+      <input align="center" type="number" min="1" oninput="validity.valid||(value='');" id="amount"/>
       <br><br>
 
       <input align="center" type="button" value="Submit" onClick="submit1()"/>

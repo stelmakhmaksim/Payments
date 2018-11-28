@@ -4,6 +4,7 @@ import com.epam.lab.payments.dao.BankAccountRepository;
 import com.epam.lab.payments.domain.BankAccountEntity;
 import com.epam.lab.payments.domain.UserEntity;
 import com.epam.lab.payments.dto.BankAccountDTO;
+import com.epam.lab.payments.dto.CreditCardDTO;
 import com.epam.lab.payments.dto.OrderDTO;
 import com.epam.lab.payments.dto.PaymentDTO;
 import com.epam.lab.payments.dto.UserDTO;
@@ -89,7 +90,16 @@ public class PaymentController {
 
         if (checkUserRole()) {
             try {
+                CreditCardDTO card = paymentsService.findCardById(paymentDTO.getCardNumber());
+                if(card.getExpiration().toLocalDate().isBefore(new Date(Calendar.getInstance().getTime().getTime()).toLocalDate())){
+                    return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                }
                 BankAccountDTO account = paymentsService.findCardById(paymentDTO.getCardNumber()).getAccount();
+
+                if (account.isBlocked()) {
+                    return new ResponseEntity(HttpStatus.NOT_FOUND);
+                }
+
                 BankAccountEntity bankAccountEntity = bankAccountRepository.findOne(account.getId());
                 bankAccountEntity.setBalance(bankAccountEntity.getBalance() - paymentDTO.getPrice());
                 bankAccountRepository.save(bankAccountEntity);
